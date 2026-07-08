@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Soft VA Guide — Time, Attendance & Tickets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14263F; --ink-soft:#3D5270; --paper:#F6F8FB; --card:#FFFFFF;
+    --blue:#2E5FA3; --blue-deep:#1F3864; --blue-tint:#E8EFF9;
+    --teal:#0F6E56; --teal-tint:#E4F2EC;
+    --amber:#8C5A08; --amber-tint:#FBF1DD;
+    --coral:#993C1D; --coral-tint:#FAECE7;
+    --line:#D8E0EC; --radius:14px;
+    --mono:'IBM Plex Mono',monospace; --disp:'Archivo',sans-serif; --body:'Public Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+  header{background:var(--blue-deep);color:#fff;padding:44px 0 40px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9FC0EA;margin-bottom:14px}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(28px,4.6vw,42px);line-height:1.12;letter-spacing:-.01em;max-width:640px}
+  .sub{color:#C6D6EC;margin-top:14px;max-width:560px}
+  .habits{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .habit{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:500;color:#EAF1FA}
+  .habit .dot{width:8px;height:8px;border-radius:50%;background:#7FB3E8;flex:none}
+
+  section{padding:52px 0 8px}
+  .sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+  h2{font-family:var(--disp);font-weight:600;font-size:clamp(22px,3vw,28px);margin-bottom:8px}
+  .lede{color:var(--ink-soft);max-width:640px;margin-bottom:26px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .scenario{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);text-align:left;cursor:pointer;font:inherit;color:inherit;padding:18px 18px 16px;transition:border-color .15s}
+  .scenario:hover{border-color:var(--blue)}
+  .scenario:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .scenario.active{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+  .scenario q{font-weight:500;display:block;quotes:'\201C' '\201D'}
+  .scenario .meta{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+  .tag.callin{background:var(--teal-tint);color:var(--teal)}
+  .tag.correction{background:var(--blue-tint);color:var(--blue)}
+  .tag.overtime{background:var(--coral-tint);color:var(--coral)}
+  .vid-badge{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px}
+  .vid-badge::before{content:'\25B6';font-size:9px;color:var(--blue)}
+
+  .panel{grid-column:1/-1;background:var(--card);border:1px solid var(--blue);border-radius:var(--radius);padding:24px;display:none}
+  .panel.open{display:block;animation:rise .18s ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .panel .route{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+  .chip{font-family:var(--mono);font-size:13px;background:var(--blue-tint);color:var(--blue-deep);border-radius:6px;padding:5px 11px}
+  .chip.strong{background:var(--blue-deep);color:#fff}
+  .route .arrow{color:var(--ink-soft)}
+  .panel h4{font-family:var(--disp);font-size:15px;font-weight:600;margin:14px 0 8px}
+  .req{list-style:none}
+  .req li{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .req li:last-child{border-bottom:none}
+  .req .box{flex:none;width:18px;height:18px;border:2px solid var(--blue);border-radius:4px;margin-top:3px}
+  .stamp{font-family:var(--mono);font-size:12.5px;color:var(--amber);background:var(--amber-tint);border-radius:6px;padding:8px 12px;display:inline-block;margin-top:14px}
+  .panel .actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;font-weight:600;font-size:14.5px;text-decoration:none;border-radius:9px;padding:10px 18px}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.primary:hover{background:var(--blue-deep)}
+  .btn.ghost{border:1.5px solid var(--blue);color:var(--blue)}
+  .btn.ghost:hover{background:var(--blue-tint)}
+
+  .video-frame{margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .video-frame iframe,.video-frame video{display:block;width:100%;aspect-ratio:16/9;border:0}
+
+  .leave-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .leave{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .leave .num{font-family:var(--disp);font-weight:700;font-size:40px;line-height:1;color:var(--blue-deep)}
+  .leave .num small{font-size:15px;font-weight:600;color:var(--ink-soft)}
+  .leave h3{font-family:var(--disp);font-size:17px;font-weight:600;margin:8px 0 4px}
+  .leave p{font-size:14.5px;color:var(--ink-soft)}
+
+  details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+  summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;font-family:var(--disp);font-weight:600;font-size:16px}
+  summary::-webkit-details-marker{display:none}
+  summary .sum-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  summary .chev{flex:none;transition:transform .18s;color:var(--blue)}
+  details[open] summary .chev{transform:rotate(90deg)}
+  details .inner{padding:0 20px 18px;color:var(--ink-soft)}
+  details ol{padding-left:22px}
+  details ol li{padding:4px 0}
+  details b{color:var(--ink)}
+
+  .rules{background:var(--amber-tint);border:1px solid #E9CE9A;border-radius:var(--radius);padding:22px 24px;margin-top:6px}
+  .rules h3{font-family:var(--disp);font-size:17px;color:var(--amber);margin-bottom:10px}
+  .rules ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 22px}
+  .rules li{display:flex;gap:9px;font-size:14.5px;color:#5C430E}
+  .rules li::before{content:'';flex:none;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-top:7px}
+
+  #library:not(.has-videos){display:none}
+  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .lib-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .lib-card .cap{padding:12px 16px;font-weight:500;font-size:15px}
+
+  footer{margin-top:56px;background:var(--blue-deep);color:#B9CCE6;padding:30px 0 36px;font-size:14px}
+  footer .links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
+  footer a{color:#fff;font-weight:500;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+  footer a:hover{border-bottom-color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Legal Soft · Operations Support · Virtual Assistants</div>
+    <h1>Your time, your pay, and the ticket that fixes anything in between</h1>
+    <p class="sub">Everything a Legal Soft VA needs for time tracking, attendance changes, and time off — in one place.</p>
+    <div class="habits" aria-label="The three habits">
+      <span class="habit"><span class="dot"></span>Track your time — timer on, breaks off</span>
+      <span class="habit"><span class="dot"></span>Get approvals in writing, with timestamps</span>
+      <span class="habit"><span class="dot"></span>File tickets the same day</span>
+    </div>
+  </div>
+</header>
+
+<section id="triage">
+  <div class="wrap">
+    <div class="sec-label">Step 1 · Find your situation</div>
+    <h2>What happened?</h2>
+    <p class="lede">Pick the card that sounds like you. It opens the exact ticket to file and the documents you need before you start.</p>
+    <div class="grid" id="scenario-grid"></div>
+  </div>
+</section>
+
+<section id="leave">
+  <div class="wrap">
+    <div class="sec-label">Time off</div>
+    <h2>Your leave, per year</h2>
+    <div class="leave-grid">
+      <div class="leave"><div class="num">3 <small>days</small></div><h3>Sick leave</h3><p>Starts on your 3rd month. Needs a timestamped approval screenshot from your supervisor or CSM.</p></div>
+      <div class="leave"><div class="num">7 <small>days</small></div><h3>Legal Soft PTO</h3><p>Starts on your 3rd month. Needs a timestamped approval screenshot from your supervisor or CSM.</p></div>
+      <div class="leave"><div class="num">&#8734;</div><h3>Client PTO</h3><p>Available with your client&rsquo;s approval. Attach the client&rsquo;s timestamped approval screenshot.</p></div>
+    </div>
+    <div id="leave-howto" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<section id="howto">
+  <div class="wrap">
+    <div class="sec-label">Hubstaff basics</div>
+    <h2>Quick how-tos</h2>
+    <div id="howto-list"></div>
+  </div>
+</section>
+
+<section id="library">
+  <div class="wrap">
+    <div class="sec-label">Watch &amp; learn</div>
+    <h2>Video library</h2>
+    <p class="lede">Short walkthroughs of the most common tasks.</p>
+    <div class="lib-grid" id="lib-grid"></div>
+  </div>
+</section>
+
+<section id="rules-sec">
+  <div class="wrap">
+    <div class="sec-label">Before you hit send</div>
+    <div class="rules">
+      <h3>Every ticket, every time</h3>
+      <ul>
+        <li>All dates and times in Pacific — note it if your screenshots aren&rsquo;t</li>
+        <li>Approvals must be written and timestamped — verbal doesn&rsquo;t count</li>
+        <li>Proof of work for any missing hours: emails, call logs, browser history</li>
+        <li>File the same day, and always before your timesheet is submitted</li>
+        <li>Following up? Reference your previous ticket number</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links" id="footer-links"></div>
+    <div>Questions? Ask your CSM. &mdash; Legal Soft Operations Support</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONTENT CONFIG — everything editable lives in this block.
+   To add a video anywhere, paste a URL into a "video" field:
+     video: "https://www.youtube.com/watch?v=XXXX"
+     video: "https://youtu.be/XXXX"
+     video: "https://www.loom.com/share/XXXX"
+     video: "https://vimeo.com/XXXX"
+     video: "https://yourhost.com/clip.mp4"
+   The player appears automatically — no other changes needed.
+   Videos also auto-collect into the "Video library" section,
+   which stays hidden until at least one video exists.
+   ============================================================ */
+
+const CONFIG = {
+  ticketUrl: "https://forms.monday.com/forms/d6c686d465dd376884de098d2ba11800?r=use1",
+  timezoneConverter: "https://dateful.com/time-zone-converter",
+
+  footerLinks: [
+    { label: "Operations Support Portal", url: "https://virtualstaffing.bettermode.io/" },
+    { label: "Download Hubstaff", url: "https://hubstaff.com/download" },
+    { label: "Hubstaff sign in", url: "https://app.hubstaff.com" },
+    { label: "Timezone converter", url: "https://dateful.com/time-zone-converter" },
+  ],
+
+  scenarios: [
+    { q: "I was late, but my supervisor approved extending my shift to make up the time.",
+      cat: "callin", catLabel: "Call-in notification",
+      route: ["Call-in Notification", "Slide Shift"], docs: "approval", video: "" },
+    { q: "My supervisor let me leave early for an errand. I know it\u2019s unpaid and I\u2019m okay with that.",
+      cat: "callin", catLabel: "Call-in notification",
+      route: ["Call-in Notification", "Unpaid Early Out"], docs: "approval", video: "" },
+    { q: "I forgot to start my timer (or fix my stamps after break), but I was actively working.",
+      cat: "correction", catLabel: "Timesheet correction",
+      route: ["Timesheet Correction", "Missing Hours"], docs: "proof", video: "" },
+    { q: "My timer stopped mid-shift, or Hubstaff had an error I didn\u2019t notice while working.",
+      cat: "correction", catLabel: "Timesheet correction",
+      route: ["Timesheet Correction", "Hubstaff Error"], docs: "proof", video: "" },
+    { q: "It\u2019s my first day of training and I couldn\u2019t log in on time \u2014 my timer wasn\u2019t set up yet.",
+      cat: "correction", catLabel: "Timesheet correction",
+      route: ["Timesheet Correction", "Onboarding / Training"], docs: "proof", video: "" },
+    { q: "The firm has a holiday and told us we can log off up to 2 hours early, paid.",
+      cat: "correction", catLabel: "Timesheet correction",
+      route: ["Timesheet Correction", "Paid Early Out"], docs: "approval",
+      note: "Applies only when the paid early-out is less than 4 hours.", video: "" },
+    { q: "My supervisor asked me to work extra hours this weekend. How do I get paid for them?",
+      cat: "overtime", catLabel: "Overtime",
+      route: ["Overtime", "Make-up hours? No"], docs: "approval", video: "" },
+    { q: "I was out sick, and my supervisor okayed working Saturday to make up the lost time.",
+      cat: "overtime", catLabel: "Overtime",
+      route: ["Overtime", "Make-up hours? Yes"], docs: "approval", video: "" },
+  ],
+
+  docSets: {
+    approval: ["Explicit written approval from your supervisor",
+               "Date and time stamp visible in the approval"],
+    proof:    ["Proof of work for the missed hours \u2014 emails, call logs, browser history, anything with a timestamp",
+               "Date and time stamps on everything"],
+  },
+
+  leaveHowto: {
+    title: "How to request time off in Hubstaff",
+    video: "",
+    steps: [
+      "Log in to <b>app.hubstaff.com</b>, then go to <b>Calendar \u2192 Time off requests</b>.",
+      "Click <b>Request time off</b> and pick your policy \u2014 Sick Leave, Legal Soft PTO, or Client PTO. Your <b>current balance</b> shows on the right.",
+      "Select your date range <b>in Pacific Time</b>. Untick \u201CAll day\u201D for a partial day.",
+      "Upload your <b>approval screenshot</b> \u2014 it must show the date and time stamps.",
+      "Fill in the reason and click <b>Send</b>. Ops Support reviews every request; you\u2019ll get an email once it\u2019s approved.",
+    ],
+  },
+
+  howtos: [
+    { title: "Install the desktop app", video: "", steps: [
+      "Download from <b>hubstaff.com/download</b> (Desktop tab) for Windows, macOS, or Linux.",
+      "Run the installer, then launch the app named <b>Hubstaff</b> and sign in. On Windows, don\u2019t open the <b>.exe installer file</b> to start the app \u2014 it reinstalls every time.",
+      "On macOS, allow <b>Screen Recording</b> and <b>Accessibility</b> permissions when asked \u2014 Hubstaff needs them to capture screenshots.",
+      "Before your first shift: sign in, confirm your organization appears, and start/stop the timer once. Problems? Contact your CSM <b>before</b> day one.",
+    ]},
+    { title: "Submit your timesheet", video: "", steps: [
+      "Go to <b>Timesheets \u2192 Approvals</b>.",
+      "Review your total worked hours and activity for the pay period. If anything is wrong, file a <b>Timesheet Correction ticket first</b>.",
+      "Click the <b>Action</b> button on the far right of the timesheet and select <b>Submit</b>.",
+    ]},
+    { title: "Verify your total hours", video: "", steps: [
+      "Go to <b>Reports \u2192 Time and Activity</b>.",
+      "Pick your date range and click <b>Apply</b>.",
+      "Check totals, average productivity, and the daily breakdown. Do this once or twice a week \u2014 catching a gap early means fresher proof of work.",
+    ]},
+    { title: "View your screenshots", video: "", steps: [
+      "Go to <b>Activity \u2192 Screenshots</b>.",
+      "Three screenshots are captured per 10-minute block on each active monitor. This activity trail is what validates your hours \u2014 and your proof if a timer ever fails.",
+    ]},
+    { title: "Set your timezone", video: "", steps: [
+      "Click your avatar \u2192 <b>My account</b> \u2192 <b>Time zone</b>.",
+      "Set it to <b>your client\u2019s timezone</b> and click Save.",
+      "Remember: your <b>account</b> follows the client\u2019s timezone, but every <b>ticket</b> is filed in Pacific Time. Two different settings, two different jobs.",
+    ]},
+    { title: "Timer trouble? Fix connection issues", video: "", steps: [
+      "<b>Disconnect any VPN or proxy</b> \u2014 Hubstaff doesn\u2019t support them, and they\u2019re the most common cause of connection failures.",
+      "Restart your modem/router (off for 10 minutes), then reconnect.",
+      "Update your operating system fully, including optional updates (certificate updates matter).",
+      "Temporarily disable firewall/antivirus, close Hubstaff, restart your computer, start Hubstaff.",
+      "Still stuck? Submit a ticket describing what you tried. If you lost tracked time while working, also file a <b>Hubstaff Error</b> correction with proof of work.",
+    ]},
+  ],
+
+  /* Standalone videos that belong in the library but not to a
+     specific how-to or scenario. Example:
+     { title: "Welcome from the Ops team", video: "https://youtu.be/XXXX" } */
+  extraVideos: [],
+};
+
+/* ============================================================
+   RENDERING — no need to edit below this line.
+   ============================================================ */
+
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function videoEmbed(url, title){
+  if(!url) return "";
+  const t = esc(title || "Video walkthrough");
+  let m;
+  if((m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{6,})/)))
+    return frame(`<iframe src="https://www.youtube-nocookie.com/embed/${m[1]}" title="${t}" allowfullscreen loading="lazy"></iframe>`);
+  if((m = url.match(/loom\.com\/share\/([\w-]+)/)))
+    return frame(`<iframe src="https://www.loom.com/embed/${m[1]}" title="${t}" allowfullscreen loading="lazy"></iframe>`);
+  if((m = url.match(/vimeo\.com\/(\d+)/)))
+    return frame(`<iframe src="https://player.vimeo.com/video/${m[1]}" title="${t}" allowfullscreen loading="lazy"></iframe>`);
+  if(/\.(mp4|webm)(\?|$)/i.test(url))
+    return frame(`<video controls preload="metadata" title="${t}"><source src="${esc(url)}"></video>`);
+  return `<p style="margin-top:12px"><a class="btn ghost" href="${esc(url)}" target="_blank" rel="noopener">Watch the video walkthrough</a></p>`;
+  function frame(inner){ return `<div class="video-frame">${inner}</div>`; }
+}
+
+/* --- Scenario triage --- */
+const grid = document.getElementById("scenario-grid");
+const panel = document.createElement("div");
+panel.className = "panel";
+panel.setAttribute("role","region");
+panel.setAttribute("aria-live","polite");
+
+CONFIG.scenarios.forEach((s,i)=>{
+  const btn = document.createElement("button");
+  btn.className = "scenario";
+  btn.setAttribute("aria-expanded","false");
+  btn.innerHTML = `<q>${s.q}</q><span class="meta"><span class="tag ${s.cat}">${s.catLabel}</span>${s.video?'<span class="vid-badge">video</span>':''}</span>`;
+  btn.addEventListener("click",()=>openScenario(i,btn));
+  grid.appendChild(btn);
+});
+grid.appendChild(panel);
+
+let current = -1;
+function openScenario(i,btn){
+  const buttons = grid.querySelectorAll(".scenario");
+  if(current===i){ panel.classList.remove("open"); buttons[i].classList.remove("active"); buttons[i].setAttribute("aria-expanded","false"); current=-1; return; }
+  buttons.forEach(b=>{b.classList.remove("active");b.setAttribute("aria-expanded","false");});
+  btn.classList.add("active");
+  btn.setAttribute("aria-expanded","true");
+  const s = CONFIG.scenarios[i];
+  const docs = CONFIG.docSets[s.docs] || [];
+  panel.innerHTML =
+    `<div class="route"><span class="chip strong">Ticket type: ${s.route[0]}</span><span class="arrow">&rarr;</span><span class="chip">${s.route[1]}</span></div>`+
+    (s.note ? `<p style="color:var(--ink-soft);font-size:14.5px">${s.note}</p>` : "")+
+    `<h4>Have these ready before you file</h4><ul class="req">`+
+    docs.map(d=>`<li><span class="box" aria-hidden="true"></span><span>${d}</span></li>`).join("")+
+    `</ul>`+
+    videoEmbed(s.video, s.route.join(" \u2014 "))+
+    `<span class="stamp">Reminder: enter all dates &amp; times in Pacific</span>`+
+    `<div class="actions"><a class="btn primary" href="${CONFIG.ticketUrl}" target="_blank" rel="noopener">Submit this ticket</a>`+
+    `<a class="btn ghost" href="${CONFIG.timezoneConverter}" target="_blank" rel="noopener">Convert to Pacific</a></div>`;
+  panel.classList.add("open");
+  current = i;
+  panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* --- Accordions (how-tos + leave) --- */
+function accordion(item){
+  const d = document.createElement("details");
+  d.innerHTML =
+    `<summary><span class="sum-left">${esc(item.title)}${item.video?'<span class="vid-badge">video</span>':''}</span><span class="chev">&#9656;</span></summary>`+
+    `<div class="inner">${videoEmbed(item.video, item.title)}${item.video?'<div style="height:14px"></div>':''}<ol>`+
+    item.steps.map(st=>`<li>${st}</li>`).join("")+
+    `</ol></div>`;
+  return d;
+}
+document.getElementById("leave-howto").appendChild(accordion(CONFIG.leaveHowto));
+const howtoList = document.getElementById("howto-list");
+CONFIG.howtos.forEach(h=>howtoList.appendChild(accordion(h)));
+
+/* --- Video library (auto-populates; hidden when empty) --- */
+const libItems = [];
+CONFIG.howtos.concat([CONFIG.leaveHowto]).forEach(h=>{ if(h.video) libItems.push({title:h.title, video:h.video}); });
+CONFIG.scenarios.forEach(s=>{ if(s.video) libItems.push({title:s.route.join(" \u2014 "), video:s.video}); });
+CONFIG.extraVideos.forEach(v=>{ if(v.video) libItems.push(v); });
+
+if(libItems.length){
+  const lib = document.getElementById("library");
+  lib.classList.add("has-videos");
+  const libGrid = document.getElementById("lib-grid");
+  libItems.forEach(v=>{
+    const card = document.createElement("div");
+    card.className = "lib-card";
+    card.innerHTML = videoEmbed(v.video, v.title) + `<div class="cap">${esc(v.title)}</div>`;
+    libGrid.appendChild(card);
+  });
+}
+
+/* --- Footer links --- */
+document.getElementById("footer-links").innerHTML =
+  CONFIG.footerLinks.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("");
+</script>
+</body>
+</html>
