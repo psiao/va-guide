@@ -6,156 +6,205 @@
 <title>Legal Soft VA Guide — Time, Attendance & Tickets</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#14263F; --ink-soft:#3D5270; --paper:#F6F8FB; --card:#FFFFFF;
-    --blue:#2E5FA3; --blue-deep:#1F3864; --blue-tint:#E8EFF9;
-    --teal:#0F6E56; --teal-tint:#E4F2EC;
-    --amber:#8C5A08; --amber-tint:#FBF1DD;
-    --coral:#993C1D; --coral-tint:#FAECE7;
-    --line:#D8E0EC; --radius:14px;
-    --mono:'IBM Plex Mono',monospace; --disp:'Archivo',sans-serif; --body:'Public Sans',sans-serif;
+    --paper:#FAF5EC; --paper-deep:#F2EADB; --card:#FFFDF8;
+    --ink:#1B2430; --ink-soft:#4A5568;
+    --cobalt:#1D4ED8; --cobalt-deep:#16337F; --cobalt-tint:#E3EBFC;
+    --teal:#0E7A63; --teal-tint:#DDF2EC;
+    --tangerine:#C2410C; --tangerine-tint:#FCE9DD;
+    --stamp:#B3541E;
+    --line:#DDD3C0; --radius:16px;
+    --mono:'IBM Plex Mono',monospace; --disp:'Bricolage Grotesque',sans-serif; --body:'Public Sans',sans-serif;
+    --shadow:0 2px 0 rgba(27,36,48,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
-  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px}
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px;
+    background-image:radial-gradient(rgba(27,36,48,.045) 1px, transparent 1px);background-size:22px 22px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
 
-  header{background:var(--blue-deep);color:#fff;padding:44px 0 40px}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9FC0EA;margin-bottom:14px}
-  h1{font-family:var(--disp);font-weight:700;font-size:clamp(28px,4.6vw,42px);line-height:1.12;letter-spacing:-.01em;max-width:640px}
-  .sub{color:#C6D6EC;margin-top:14px;max-width:560px}
-  .habits{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-  .habit{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:500;color:#EAF1FA}
-  .habit .dot{width:8px;height:8px;border-radius:50%;background:#7FB3E8;flex:none}
+  /* ---------- links: underline everything clickable ---------- */
+  a:not(.btn){color:var(--cobalt);font-weight:600;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--cobalt)}
+  a:not(.btn):hover{color:var(--cobalt-deep);text-decoration-color:var(--cobalt-deep)}
+  .btn{text-decoration:none}
 
-  section{padding:52px 0 8px}
-  .sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
-  h2{font-family:var(--disp);font-weight:600;font-size:clamp(22px,3vw,28px);margin-bottom:8px}
-  .lede{color:var(--ink-soft);max-width:640px;margin-bottom:26px}
+  /* ---------- header ---------- */
+  header{padding:56px 0 30px;border-bottom:3px solid var(--ink)}
+  .masthead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .admit{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:2px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:6px 12px;transform:rotate(3deg);font-weight:600}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-.02em;margin-top:18px;max-width:760px}
+  h1 .hl{color:var(--cobalt)}
+  .sub{color:var(--ink-soft);margin-top:16px;max-width:600px;font-size:17px}
+  .habits{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--card)}
+  .habit{flex:1 1 220px;display:flex;gap:12px;align-items:center;padding:14px 18px;border-right:2px dashed var(--line)}
+  .habit:last-child{border-right:none}
+  .habit .n{font-family:var(--disp);font-weight:800;font-size:26px;color:var(--cobalt);line-height:1}
+  .habit .t{font-size:14px;font-weight:600;line-height:1.35}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-  .scenario{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);text-align:left;cursor:pointer;font:inherit;color:inherit;padding:18px 18px 16px;transition:border-color .15s}
-  .scenario:hover{border-color:var(--blue)}
-  .scenario:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-  .scenario.active{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
-  .scenario q{font-weight:500;display:block;quotes:'\201C' '\201D'}
-  .scenario .meta{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
-  .tag{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
-  .tag.callin{background:var(--teal-tint);color:var(--teal)}
-  .tag.correction{background:var(--blue-tint);color:var(--blue)}
-  .tag.overtime{background:var(--coral-tint);color:var(--coral)}
-  .vid-badge{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px}
-  .vid-badge::before{content:'\25B6';font-size:9px;color:var(--blue)}
+  /* ---------- sections ---------- */
+  section{padding:56px 0 6px}
+  .stamp-label{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--stamp);border:2px solid var(--stamp);border-radius:8px;padding:5px 12px;transform:rotate(-2deg);margin-bottom:14px}
+  h2{font-family:var(--disp);font-weight:700;font-size:clamp(26px,3.6vw,36px);letter-spacing:-.01em;margin-bottom:10px}
+  .lede{color:var(--ink-soft);max-width:640px;margin-bottom:28px}
 
-  .panel{grid-column:1/-1;background:var(--card);border:1px solid var(--blue);border-radius:var(--radius);padding:24px;display:none}
-  .panel.open{display:block;animation:rise .18s ease-out}
-  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .panel .route{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
-  .chip{font-family:var(--mono);font-size:13px;background:var(--blue-tint);color:var(--blue-deep);border-radius:6px;padding:5px 11px}
-  .chip.strong{background:var(--blue-deep);color:#fff}
-  .route .arrow{color:var(--ink-soft)}
-  .panel h4{font-family:var(--disp);font-size:15px;font-weight:600;margin:14px 0 8px}
+  /* ---------- ticket stubs ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+  .stub{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);text-align:left;cursor:pointer;font:inherit;color:inherit;padding:18px 18px 16px 34px;box-shadow:var(--shadow);transition:transform .15s, box-shadow .15s}
+  .stub::before{content:'';position:absolute;left:16px;top:12px;bottom:12px;border-left:2px dashed var(--line)}
+  .stub::after{content:'';position:absolute;left:-8px;top:50%;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);transform:translateY(-50%)}
+  .stub:hover{transform:translateY(-3px);box-shadow:0 5px 0 rgba(27,36,48,.15)}
+  .stub:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+  .stub.active{border-color:var(--cobalt);box-shadow:0 5px 0 var(--cobalt)}
+  .stub q{font-weight:500;display:block;quotes:'\201C' '\201D';font-size:15.5px}
+  .stub .meta{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:6px;border:1.5px solid}
+  .tag.callin{background:var(--teal-tint);color:var(--teal);border-color:var(--teal)}
+  .tag.correction{background:var(--cobalt-tint);color:var(--cobalt);border-color:var(--cobalt)}
+  .tag.overtime{background:var(--tangerine-tint);color:var(--tangerine);border-color:var(--tangerine)}
+  .vid-badge{font-family:var(--mono);font-size:11px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px}
+  .vid-badge::before{content:'\25B6';font-size:9px;color:var(--cobalt)}
+
+  /* ---------- boarding pass panel ---------- */
+  .panel{grid-column:1/-1;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);display:none;overflow:hidden;box-shadow:0 5px 0 rgba(27,36,48,.15)}
+  .panel.open{display:block;animation:rise .2s ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .pass-top{background:var(--ink);color:var(--paper);padding:16px 24px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:baseline}
+  .pass-top .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.65;display:block}
+  .pass-top .val{font-family:var(--disp);font-weight:700;font-size:19px}
+  .pass-top .arrow{font-size:22px;opacity:.6;align-self:center}
+  .pass-body{padding:22px 24px;border-top:2px dashed var(--line)}
+  .panel h4{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:4px 0 10px}
   .req{list-style:none}
-  .req li{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line)}
+  .req li{display:flex;gap:11px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
   .req li:last-child{border-bottom:none}
-  .req .box{flex:none;width:18px;height:18px;border:2px solid var(--blue);border-radius:4px;margin-top:3px}
-  .stamp{font-family:var(--mono);font-size:12.5px;color:var(--amber);background:var(--amber-tint);border-radius:6px;padding:8px 12px;display:inline-block;margin-top:14px}
-  .panel .actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
-  .btn{display:inline-block;font-weight:600;font-size:14.5px;text-decoration:none;border-radius:9px;padding:10px 18px}
-  .btn.primary{background:var(--blue);color:#fff}
-  .btn.primary:hover{background:var(--blue-deep)}
-  .btn.ghost{border:1.5px solid var(--blue);color:var(--blue)}
-  .btn.ghost:hover{background:var(--blue-tint)}
-
-  .video-frame{margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .req .box{flex:none;width:19px;height:19px;border:2px solid var(--ink);border-radius:5px;margin-top:2px;background:var(--card)}
+  .note{color:var(--ink-soft);font-size:14.5px;margin-bottom:12px}
+  .pacific{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--stamp);border:2px solid var(--stamp);border-radius:8px;padding:7px 12px;display:inline-block;margin-top:16px;transform:rotate(-1deg)}
+  .actions{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+  .btn{display:inline-block;font-family:var(--disp);font-weight:700;font-size:15px;text-decoration:none;border-radius:10px;padding:11px 20px;border:2px solid var(--ink);transition:transform .12s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:var(--cobalt);border-color:var(--cobalt-deep);color:#fff;box-shadow:0 3px 0 var(--cobalt-deep)}
+  .btn.ghost{background:var(--card);color:var(--ink);box-shadow:0 3px 0 rgba(27,36,48,.25)}
+  .video-frame{margin-top:16px;border-radius:12px;overflow:hidden;border:2px solid var(--ink);background:#000}
   .video-frame iframe,.video-frame video{display:block;width:100%;aspect-ratio:16/9;border:0}
 
-  .leave-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .leave{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
-  .leave .num{font-family:var(--disp);font-weight:700;font-size:40px;line-height:1;color:var(--blue-deep)}
-  .leave .num small{font-size:15px;font-weight:600;color:var(--ink-soft)}
-  .leave h3{font-family:var(--disp);font-size:17px;font-weight:600;margin:8px 0 4px}
+  /* ---------- leave punch cards ---------- */
+  .leave-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+  .leave{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .leave .num{font-family:var(--disp);font-weight:800;font-size:56px;line-height:.95;letter-spacing:-.02em}
+  .leave.sick .num{color:var(--teal)} .leave.pto .num{color:var(--cobalt)} .leave.client .num{color:var(--tangerine)}
+  .leave .unit{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .leave h3{font-family:var(--disp);font-size:19px;font-weight:700;margin:10px 0 4px}
   .leave p{font-size:14.5px;color:var(--ink-soft)}
+  .leave .unlock{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--paper-deep);border:1.5px solid var(--line);border-radius:6px;padding:4px 9px}
 
-  details{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
-  summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;font-family:var(--disp);font-weight:600;font-size:16px}
+  /* ---------- accordions ---------- */
+  details{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+  summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 22px;font-family:var(--disp);font-weight:700;font-size:17px}
   summary::-webkit-details-marker{display:none}
   summary .sum-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  summary .chev{flex:none;transition:transform .18s;color:var(--blue)}
-  details[open] summary .chev{transform:rotate(90deg)}
-  details .inner{padding:0 20px 18px;color:var(--ink-soft)}
+  summary .chev{flex:none;width:26px;height:26px;border:2px solid var(--ink);border-radius:8px;display:grid;place-items:center;font-size:13px;transition:transform .18s;background:var(--paper-deep)}
+  details[open] summary .chev{transform:rotate(90deg);background:var(--cobalt-tint)}
+  details .inner{padding:0 22px 20px;color:var(--ink-soft)}
   details ol{padding-left:22px}
-  details ol li{padding:4px 0}
+  details ol li{padding:5px 0}
   details b{color:var(--ink)}
 
-  .rules{background:var(--amber-tint);border:1px solid #E9CE9A;border-radius:var(--radius);padding:22px 24px;margin-top:6px}
-  .rules h3{font-family:var(--disp);font-size:17px;color:var(--amber);margin-bottom:10px}
-  .rules ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 22px}
-  .rules li{display:flex;gap:9px;font-size:14.5px;color:#5C430E}
-  .rules li::before{content:'';flex:none;width:8px;height:8px;border-radius:50%;background:var(--amber);margin-top:7px}
+  /* ---------- rules ---------- */
+  .rules{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:26px 28px;margin-top:6px;box-shadow:0 5px 0 rgba(27,36,48,.3)}
+  .rules h3{font-family:var(--disp);font-size:21px;font-weight:700;margin-bottom:14px}
+  .rules h3 .hl{color:#F5B971}
+  .rules ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 26px}
+  .rules li{display:flex;gap:10px;font-size:14.5px;color:#E6E0D4}
+  .rules li::before{content:'\2713';flex:none;font-weight:700;color:#F5B971}
 
+  /* ---------- best practices ---------- */
+  .practice{display:flex;gap:16px;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);padding:18px 20px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .practice .pn{flex:none;font-family:var(--disp);font-weight:800;font-size:24px;color:var(--cobalt);width:34px;line-height:1.2}
+  .practice .pt{font-family:var(--disp);font-weight:700;font-size:16.5px;margin-bottom:3px}
+  .practice .pb{font-size:14.5px;color:var(--ink-soft)}
+  .practice details{border:none;box-shadow:none;margin:10px 0 0;background:transparent}
+  .practice summary{padding:0;font-size:14px;font-family:var(--mono);font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--cobalt);justify-content:flex-start}
+  .practice summary .chev{width:20px;height:20px;font-size:10px}
+  .practice details .inner{padding:10px 0 0}
+  .practice .os{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper-deep);border:1.5px solid var(--line);border-radius:6px;padding:3px 9px;display:inline-block;margin:12px 0 6px}
+  .practice .warn{border-left:4px solid var(--tangerine);padding-left:12px}
+
+  /* ---------- video library ---------- */
   #library:not(.has-videos){display:none}
-  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-  .lib-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-  .lib-card .cap{padding:12px 16px;font-weight:500;font-size:15px}
+  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+  .lib-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .lib-card .cap{padding:13px 16px;font-weight:600;font-size:15px}
 
-  footer{margin-top:56px;background:var(--blue-deep);color:#B9CCE6;padding:30px 0 36px;font-size:14px}
-  footer .links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:14px}
-  footer a{color:#fff;font-weight:500;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
-  footer a:hover{border-bottom-color:#fff}
+  footer{margin-top:64px;border-top:3px solid var(--ink);padding:30px 0 40px;font-size:14px;color:var(--ink-soft)}
+  footer .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:14px}
+  footer a{color:var(--cobalt)}
+  footer a:hover{color:var(--cobalt-deep)}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <div class="eyebrow">Legal Soft · Operations Support · Virtual Assistants</div>
-    <h1>Your time, your pay, and the ticket that fixes anything in between</h1>
-    <p class="sub">Everything a Legal Soft VA needs for time tracking, attendance changes, and time off — in one place.</p>
+    <div class="masthead">
+      <div class="eyebrow">Legal Soft · Operations Support · Virtual Assistants</div>
+      <div class="admit">Admit one · New hire</div>
+    </div>
+    <h1>Clock in. Get paid.<br><span class="hl">Fix anything in between.</span></h1>
+    <p class="sub">Time tracking, attendance changes, tickets, and time off — the whole playbook on one page.</p>
     <div class="habits" aria-label="The three habits">
-      <span class="habit"><span class="dot"></span>Track your time — timer on, breaks off</span>
-      <span class="habit"><span class="dot"></span>Get approvals in writing, with timestamps</span>
-      <span class="habit"><span class="dot"></span>File tickets the same day</span>
+      <div class="habit"><span class="n">1</span><span class="t">Track your time — timer on, breaks off</span></div>
+      <div class="habit"><span class="n">2</span><span class="t">Get approvals in writing, with timestamps</span></div>
+      <div class="habit"><span class="n">3</span><span class="t">File tickets the same day</span></div>
     </div>
   </div>
 </header>
 
 <section id="triage">
   <div class="wrap">
-    <div class="sec-label">Step 1 · Find your situation</div>
+    <span class="stamp-label">Step 1 · Find your situation</span>
     <h2>What happened?</h2>
-    <p class="lede">Pick the card that sounds like you. It opens the exact ticket to file and the documents you need before you start.</p>
+    <p class="lede">Pick the ticket stub that sounds like you. It opens your boarding pass: the exact ticket to file and what to have ready.</p>
     <div class="grid" id="scenario-grid"></div>
   </div>
 </section>
 
 <section id="leave">
   <div class="wrap">
-    <div class="sec-label">Time off</div>
+    <span class="stamp-label">Time off</span>
     <h2>Your leave, per year</h2>
     <div class="leave-grid">
-      <div class="leave"><div class="num">3 <small>days</small></div><h3>Sick leave</h3><p>Starts on your 3rd month. Needs a timestamped approval screenshot from your supervisor or CSM.</p></div>
-      <div class="leave"><div class="num">7 <small>days</small></div><h3>Legal Soft PTO</h3><p>Starts on your 3rd month. Needs a timestamped approval screenshot from your supervisor or CSM.</p></div>
-      <div class="leave"><div class="num">&#8734;</div><h3>Client PTO</h3><p>Available with your client&rsquo;s approval. Attach the client&rsquo;s timestamped approval screenshot.</p></div>
+      <div class="leave sick"><div class="num">3</div><div class="unit">days · sick leave</div><h3>Sick leave</h3><p>Needs a timestamped approval screenshot from your supervisor or CSM.</p><span class="unlock">Unlocks at month 3</span></div>
+      <div class="leave pto"><div class="num">6</div><div class="unit">days · Legal Soft PTO</div><h3>Legal Soft PTO</h3><p>Needs a timestamped approval screenshot from your supervisor or CSM.</p><span class="unlock">Unlocks at month 6</span></div>
+      <div class="leave client"><div class="num">&#8734;</div><div class="unit">client PTO</div><h3>Client PTO</h3><p>Available with your client&rsquo;s approval. Attach the client&rsquo;s timestamped approval screenshot.</p><span class="unlock">Client approval required</span></div>
     </div>
-    <div id="leave-howto" style="margin-top:14px"></div>
+    <div id="leave-howto" style="margin-top:16px"></div>
   </div>
 </section>
 
 <section id="howto">
   <div class="wrap">
-    <div class="sec-label">Hubstaff basics</div>
+    <span class="stamp-label">Hubstaff basics</span>
     <h2>Quick how-tos</h2>
     <div id="howto-list"></div>
   </div>
 </section>
 
+<section id="practices">
+  <div class="wrap">
+    <span class="stamp-label">Work smart</span>
+    <h2>Best practices</h2>
+    <div id="practice-list"></div>
+  </div>
+</section>
+
 <section id="library">
   <div class="wrap">
-    <div class="sec-label">Watch &amp; learn</div>
+    <span class="stamp-label">Watch &amp; learn</span>
     <h2>Video library</h2>
     <p class="lede">Short walkthroughs of the most common tasks.</p>
     <div class="lib-grid" id="lib-grid"></div>
@@ -164,9 +213,8 @@
 
 <section id="rules-sec">
   <div class="wrap">
-    <div class="sec-label">Before you hit send</div>
     <div class="rules">
-      <h3>Every ticket, every time</h3>
+      <h3>Every ticket, <span class="hl">every time</span></h3>
       <ul>
         <li>All dates and times in Pacific — note it if your screenshots aren&rsquo;t</li>
         <li>Approvals must be written and timestamped — verbal doesn&rsquo;t count</li>
@@ -205,6 +253,8 @@ const CONFIG = {
 
   footerLinks: [
     { label: "Operations Support Portal", url: "https://virtualstaffing.bettermode.io/" },
+    { label: "2026 Payroll Calendar", url: "https://drive.google.com/file/d/1zc_WZEU7NcFCsbLcygSdfSHza1sIMWLu/view" },
+    { label: "Performance Viewer", url: "https://datastudio.google.com/u/0/reporting/b576bbbd-a6b9-451e-a72b-161009e8ea35/page/NBoKF" },
     { label: "Download Hubstaff", url: "https://hubstaff.com/download" },
     { label: "Hubstaff sign in", url: "https://app.hubstaff.com" },
     { label: "Timezone converter", url: "https://dateful.com/time-zone-converter" },
@@ -249,7 +299,7 @@ const CONFIG = {
     title: "How to request time off in Hubstaff",
     video: "",
     steps: [
-      "Log in to <b>app.hubstaff.com</b>, then go to <b>Calendar \u2192 Time off requests</b>.",
+      "Log in to <a href='https://app.hubstaff.com' target='_blank' rel='noopener'>app.hubstaff.com</a>, then go to <b>Calendar \u2192 Time off requests</b>.",
       "Click <b>Request time off</b> and pick your policy \u2014 Sick Leave, Legal Soft PTO, or Client PTO. Your <b>current balance</b> shows on the right.",
       "Select your date range <b>in Pacific Time</b>. Untick \u201CAll day\u201D for a partial day.",
       "Upload your <b>approval screenshot</b> \u2014 it must show the date and time stamps.",
@@ -259,12 +309,13 @@ const CONFIG = {
 
   howtos: [
     { title: "Install the desktop app", video: "", steps: [
-      "Download from <b>hubstaff.com/download</b> (Desktop tab) for Windows, macOS, or Linux.",
+      "Download from <a href='https://hubstaff.com/download' target='_blank' rel='noopener'>hubstaff.com/download</a> (Desktop tab) for Windows, macOS, or Linux.",
       "Run the installer, then launch the app named <b>Hubstaff</b> and sign in. On Windows, don\u2019t open the <b>.exe installer file</b> to start the app \u2014 it reinstalls every time.",
       "On macOS, allow <b>Screen Recording</b> and <b>Accessibility</b> permissions when asked \u2014 Hubstaff needs them to capture screenshots.",
       "Before your first shift: sign in, confirm your organization appears, and start/stop the timer once. Problems? Contact your CSM <b>before</b> day one.",
     ]},
     { title: "Submit your timesheet", video: "", steps: [
+      "Wait until the <b>payroll cutoff period has ended</b> \u2014 submitting early locks your timer for the rest of the pay period.",
       "Go to <b>Timesheets \u2192 Approvals</b>.",
       "Review your total worked hours and activity for the pay period. If anything is wrong, file a <b>Timesheet Correction ticket first</b>.",
       "Click the <b>Action</b> button on the far right of the timesheet and select <b>Submit</b>.",
@@ -277,6 +328,12 @@ const CONFIG = {
     { title: "View your screenshots", video: "", steps: [
       "Go to <b>Activity \u2192 Screenshots</b>.",
       "Three screenshots are captured per 10-minute block on each active monitor. This activity trail is what validates your hours \u2014 and your proof if a timer ever fails.",
+    ]},
+    { title: "Check your time off credits", video: "", steps: [
+      "Log in to <a href='https://app.hubstaff.com' target='_blank' rel='noopener'>app.hubstaff.com</a> and go to <b>Calendar \u2192 Time off requests</b>.",
+      "Click <b>Request time off</b> and select a policy in the <b>Policy</b> field \u2014 Sick Leave, Legal Soft PTO, or Client PTO.",
+      "Look at the box on the right: it shows your <b>current balance</b>, hours already used, and what\u2019s left for that policy.",
+      "Just checking? Close the window without clicking Send \u2014 nothing is submitted until you send the request.",
     ]},
     { title: "Set your timezone", video: "", steps: [
       "Click your avatar \u2192 <b>My account</b> \u2192 <b>Time zone</b>.",
@@ -292,8 +349,44 @@ const CONFIG = {
     ]},
   ],
 
-  /* Standalone videos that belong in the library but not to a
-     specific how-to or scenario. Example:
+  /* Best practices. Optional fields:
+     warn: true  — adds an orange emphasis bar for high-stakes items
+     sub: [{label, steps:[...]}] — collapsible OS-specific instructions */
+  bestPractices: [
+    { title: "Don\u2019t submit your timesheet before the payroll cutoff ends", warn: true,
+      body: "Submitting early locks your Hubstaff timer for the rest of the pay period \u2014 you won\u2019t be able to track any more time. Wait until the cutoff has passed, verify your hours, then submit." },
+    { title: "Check the Performance Viewer daily",
+      body: "Make sure your attendance tags are accurate and properly reflect your work activity. Catching a wrong tag the same day is a quick fix; finding it at cutoff is a headache. The Performance Viewer link is in Quick Links below." },
+    { title: "Keep two clocks: Pacific Time and your client\u2019s time zone",
+      body: "You live in three time zones \u2014 yours, your client\u2019s, and Pacific for tickets. Putting the last two on your desktop keeps schedules, meetings, and deadlines straight.",
+      sub: [
+        { label: "Windows", steps: [
+          "Open <b>Settings</b>.",
+          "Go to <b>Time &amp; Language \u2192 Date &amp; Time</b>.",
+          "Scroll down and select <b>Additional Clocks</b>.",
+          "Enable <b>Show this clock</b> for each additional clock.",
+          "Select the time zones \u2014 Pacific Time and your client\u2019s time zone.",
+          "Click <b>Apply</b>, then <b>OK</b>. Hover your taskbar clock to see all three.",
+        ]},
+        { label: "Mac", steps: [
+          "Open <b>System Settings</b> (System Preferences on older macOS).",
+          "Go to <b>Control Center \u2192 Clock Options</b>.",
+          "Enable <b>Show Time in Menu Bar</b> if it isn\u2019t already.",
+          "Open the <b>Clock</b> app or add <b>World Clock</b> widgets.",
+          "Add Pacific Time and your client\u2019s time zone for easy reference.",
+        ]},
+      ]},
+    { title: "Work tools only while on the clock", warn: true,
+      body: "Use company-issued tools and work-related applications only while tracking. Avoid apps, websites, or software unrelated to your work \u2014 especially anything designed to artificially inflate Hubstaff activity levels. Any attempt to manipulate activity tracking may result in disciplinary action and could jeopardize your engagement with Legal Soft." },
+    { title: "Ran out of tasks? Say so",
+      body: "Be proactive \u2014 reach out to your client, supervisor, or point of contact for additional work rather than staying idle. Idle time with a running timer raises questions; asking for work builds trust." },
+    { title: "Guard client information",
+      body: "Handle client information with care and confidentiality. Follow security protocols and exercise caution when accessing, sharing, or storing sensitive information \u2014 you\u2019re working with law firms, and their clients\u2019 data deserves lawyer-level care." },
+    { title: "Stay professional in every channel",
+      body: "Whether you\u2019re talking to clients, colleagues, or support teams \u2014 courteous, respectful, and professional, every time." },
+  ],
+
+  /* Standalone videos for the library. Example:
      { title: "Welcome from the Ops team", video: "https://youtu.be/XXXX" } */
   extraVideos: [],
 };
@@ -329,7 +422,7 @@ panel.setAttribute("aria-live","polite");
 
 CONFIG.scenarios.forEach((s,i)=>{
   const btn = document.createElement("button");
-  btn.className = "scenario";
+  btn.className = "stub";
   btn.setAttribute("aria-expanded","false");
   btn.innerHTML = `<q>${s.q}</q><span class="meta"><span class="tag ${s.cat}">${s.catLabel}</span>${s.video?'<span class="vid-badge">video</span>':''}</span>`;
   btn.addEventListener("click",()=>openScenario(i,btn));
@@ -339,7 +432,7 @@ grid.appendChild(panel);
 
 let current = -1;
 function openScenario(i,btn){
-  const buttons = grid.querySelectorAll(".scenario");
+  const buttons = grid.querySelectorAll(".stub");
   if(current===i){ panel.classList.remove("open"); buttons[i].classList.remove("active"); buttons[i].setAttribute("aria-expanded","false"); current=-1; return; }
   buttons.forEach(b=>{b.classList.remove("active");b.setAttribute("aria-expanded","false");});
   btn.classList.add("active");
@@ -347,15 +440,21 @@ function openScenario(i,btn){
   const s = CONFIG.scenarios[i];
   const docs = CONFIG.docSets[s.docs] || [];
   panel.innerHTML =
-    `<div class="route"><span class="chip strong">Ticket type: ${s.route[0]}</span><span class="arrow">&rarr;</span><span class="chip">${s.route[1]}</span></div>`+
-    (s.note ? `<p style="color:var(--ink-soft);font-size:14.5px">${s.note}</p>` : "")+
+    `<div class="pass-top">`+
+      `<div><span class="lab">Ticket type</span><span class="val">${s.route[0]}</span></div>`+
+      `<div class="arrow">&rarr;</div>`+
+      `<div><span class="lab">${s.route[1].startsWith("Make-up") ? "Detail" : "Issue type"}</span><span class="val">${s.route[1]}</span></div>`+
+    `</div>`+
+    `<div class="pass-body">`+
+    (s.note ? `<p class="note">${s.note}</p>` : "")+
     `<h4>Have these ready before you file</h4><ul class="req">`+
     docs.map(d=>`<li><span class="box" aria-hidden="true"></span><span>${d}</span></li>`).join("")+
     `</ul>`+
     videoEmbed(s.video, s.route.join(" \u2014 "))+
-    `<span class="stamp">Reminder: enter all dates &amp; times in Pacific</span>`+
+    `<div><span class="pacific">All dates &amp; times in Pacific</span></div>`+
     `<div class="actions"><a class="btn primary" href="${CONFIG.ticketUrl}" target="_blank" rel="noopener">Submit this ticket</a>`+
-    `<a class="btn ghost" href="${CONFIG.timezoneConverter}" target="_blank" rel="noopener">Convert to Pacific</a></div>`;
+    `<a class="btn ghost" href="${CONFIG.timezoneConverter}" target="_blank" rel="noopener">Convert to Pacific</a></div>`+
+    `</div>`;
   panel.classList.add("open");
   current = i;
   panel.scrollIntoView({behavior:"smooth",block:"nearest"});
@@ -374,6 +473,22 @@ function accordion(item){
 document.getElementById("leave-howto").appendChild(accordion(CONFIG.leaveHowto));
 const howtoList = document.getElementById("howto-list");
 CONFIG.howtos.forEach(h=>howtoList.appendChild(accordion(h)));
+
+/* --- Best practices --- */
+const pList = document.getElementById("practice-list");
+CONFIG.bestPractices.forEach((p,i)=>{
+  const div = document.createElement("div");
+  div.className = "practice";
+  let subHtml = "";
+  if(p.sub){
+    subHtml = `<details><summary><span class="sum-left">Set it up</span><span class="chev">&#9656;</span></summary><div class="inner">`+
+      p.sub.map(s=>`<span class="os">${esc(s.label)}</span><ol>${s.steps.map(st=>`<li>${st}</li>`).join("")}</ol>`).join("")+
+      `</div></details>`;
+  }
+  div.innerHTML = `<div class="pn">${String(i+1).padStart(2,"0")}</div>`+
+    `<div${p.warn?' class="warn"':''}><div class="pt">${esc(p.title)}</div><div class="pb">${p.body}</div>${subHtml}</div>`;
+  pList.appendChild(div);
+});
 
 /* --- Video library (auto-populates; hidden when empty) --- */
 const libItems = [];
