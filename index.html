@@ -69,6 +69,7 @@
   .tag.callin{background:var(--teal-tint);color:var(--teal);border-color:var(--teal)}
   .tag.correction{background:var(--cobalt-tint);color:var(--cobalt);border-color:var(--cobalt)}
   .tag.overtime{background:var(--tangerine-tint);color:var(--tangerine);border-color:var(--tangerine)}
+  .tag.schedule{background:var(--amber-tint,#FBF1DD);color:#8C5A08;border-color:#8C5A08}
   .vid-badge{font-family:var(--mono);font-size:11px;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px}
   .vid-badge::before{content:'\25B6';font-size:9px;color:var(--cobalt)}
 
@@ -283,7 +284,7 @@ const SHARED = {
      Example:  { title: "Welcome from Ops", title_es: "Bienvenida de Ops", video: "https://youtu.be/XXXX" }
    ============================================================ */
 const VIDEOS = {
-  s1:"", s2:"", s3:"", s4:"", s5:"", s6:"", s7:"", s8:"",
+  s1:"", s2:"", s3:"", s4:"", s5:"", s6:"", s7:"", s8:"", s9:"",
   leave:"", install:"", timesheet:"", verify:"", screenshots:"",
   credits:"", timezone:"", connection:"",
   extraVideos: [],
@@ -327,7 +328,9 @@ en: {
   panelLabels: { ticketType:"Ticket type", issueType:"Issue type", detail:"Detail", haveReady:"Have these ready before you file",
     pacific:"All dates & times in Pacific", submit:"Submit this ticket", convert:"Convert to Pacific",
     confirmHint:"Tap each item to confirm you have it \u2014 the submit button unlocks when everything is checked.",
-    afterFile:"<b>What happens next?</b> You\u2019ll receive an email from the ticketing team with feedback once your ticket is processed. If your ticket is declined, read the feedback closely and follow the next set of instructions." },
+    afterFile:"<b>What happens next?</b> You\u2019ll receive an email from the ticketing team with feedback once your ticket is processed. If your ticket is declined, read the feedback closely and follow the next set of instructions.",
+    sendToCsm:"Send these details to your CSM", copyTemplate:"Copy message template", copied:"Copied! Paste it in your chat with your CSM.",
+    afterCsm:"<b>What happens next?</b> Your CSM reviews the request and coordinates the schedule change. The new schedule is not active until your CSM confirms it \u2014 keep your current schedule until then." },
   notSure: { q:"None of these sound like me, or I\u2019m not sure which one fits.",
     tag:"Not sure? Don\u2019t guess",
     title:"Ask before you file",
@@ -343,10 +346,13 @@ en: {
     { id:"s6", q:"The firm has a holiday and told us we can log off up to 2 hours early, paid.", cat:"correction", catLabel:"Timesheet correction", route:["Timesheet Correction","Paid Early Out"], docs:"approval", note:"Applies only when the paid early-out is less than 4 hours." },
     { id:"s7", q:"My supervisor asked me to work extra hours this weekend. How do I get paid for them?", cat:"overtime", catLabel:"Overtime", route:["Overtime","Make-up hours? No"], docs:"approval" },
     { id:"s8", q:"I was out sick, and my supervisor okayed working Saturday to make up the lost time.", cat:"overtime", catLabel:"Overtime", route:["Overtime","Make-up hours? Yes"], docs:"approval" },
+    { id:"s9", q:"My client approved a permanent change to my schedule \u2014 new login/logout times or different rest days.", cat:"schedule", catLabel:"Schedule change \u00B7 CSM", route:["Schedule Change","CSM Process"], docs:"schedule", process:"csm",
+      note:"This one is not a ticket \u2014 it goes through your CSM. Send them the details below." },
   ],
   docSets: {
     approval:["Explicit written approval from your supervisor","Date and time stamp visible in the approval"],
     proof:["Proof of work for the missed hours \u2014 emails, call logs, browser history, anything with a timestamp","Date and time stamps on everything"],
+    schedule:["Login Time (PST)","Logout Time (PST)","Rest Days","Effectivity Date","Approval screenshot \u2014 showing approval from the client"],
   },
   leaveCards: [
     { cls:"sick", num:"3", unit:"days \u00B7 sick leave", title:"Sick leave", body:"Needs a timestamped approval screenshot from your supervisor or CSM.", unlock:"Unlocks at month 3" },
@@ -446,9 +452,9 @@ es: {
   admit: "Entrada \u00B7 Nuevo ingreso",
   hero: "Marca tu entrada. Recibe tu pago.<br><span class='hl'>Arregla todo lo dem\u00E1s.</span>",
   sub: "Registro de horas, cambios de asistencia, tickets y d\u00EDas libres \u2014 todo el manual en una sola p\u00E1gina.",
-  habits: ["Registra tu tiempo \u2014 timer encendido, apagado en descansos","Consigue aprobaciones por escrito, con fecha y hora","Env\u00EDa tus tickets el mismo d\u00EDa"],
+  habits: ["Registra tus horas: timer activo mientras trabajas, en pausa en tus descansos","Consigue aprobaciones por escrito, con fecha y hora","Env\u00EDa tus tickets el mismo d\u00EDa"],
   triageStamp: "Paso 1 \u00B7 Encuentra tu situaci\u00F3n", triageH2: "\u00BFQu\u00E9 pas\u00F3?",
-  triageLede: "Elige el bolet\u00EDn que suene como t\u00FA. Abre tu pase de abordar: el ticket exacto que debes enviar y lo que necesitas tener listo.",
+  triageLede: "Elige la tarjeta que mejor describa tu situaci\u00F3n. Ver\u00E1s el ticket exacto que debes enviar y lo que necesitas tener listo.",
   leaveStamp: "D\u00EDas libres", leaveH2: "Tus d\u00EDas libres al a\u00F1o",
   howtoStamp: "Conceptos b\u00E1sicos de Hubstaff", howtoH2: "Gu\u00EDas r\u00E1pidas",
   practiceStamp: "Trabaja inteligente", practiceH2: "Buenas pr\u00E1cticas",
@@ -468,7 +474,9 @@ es: {
   panelLabels: { ticketType:"Tipo de ticket", issueType:"Tipo de problema", detail:"Detalle", haveReady:"Ten esto listo antes de enviar",
     pacific:"Todas las fechas y horas en hora del Pac\u00EDfico", submit:"Enviar este ticket", convert:"Convertir a hora del Pac\u00EDfico",
     confirmHint:"Toca cada punto para confirmar que lo tienes \u2014 el bot\u00F3n de env\u00EDo se desbloquea cuando todo est\u00E9 marcado.",
-    afterFile:"<b>\u00BFQu\u00E9 sigue?</b> Recibir\u00E1s un correo del equipo de tickets con retroalimentaci\u00F3n cuando tu ticket sea procesado. Si tu ticket es rechazado, lee los comentarios con atenci\u00F3n y sigue las instrucciones indicadas." },
+    afterFile:"<b>\u00BFQu\u00E9 sigue?</b> Recibir\u00E1s un correo del equipo de tickets con retroalimentaci\u00F3n cuando tu ticket sea procesado. Si tu ticket es rechazado, lee los comentarios con atenci\u00F3n y sigue las instrucciones indicadas.",
+    sendToCsm:"Env\u00EDa estos datos a tu CSM", copyTemplate:"Copiar plantilla de mensaje", copied:"\u00A1Copiado! P\u00E9gala en tu chat con tu CSM.",
+    afterCsm:"<b>\u00BFQu\u00E9 sigue?</b> Tu CSM revisa la solicitud y coordina el cambio de horario. El nuevo horario no est\u00E1 activo hasta que tu CSM lo confirme \u2014 mant\u00E9n tu horario actual hasta entonces." },
   notSure: { q:"Ninguno suena como mi caso, o no estoy seguro(a) de cu\u00E1l aplica.",
     tag:"\u00BFDudas? No adivines",
     title:"Pregunta antes de enviar",
@@ -484,10 +492,13 @@ es: {
     { id:"s6", q:"La firma tiene un feriado y nos avisaron que podemos salir hasta 2 horas antes, pagadas.", cat:"correction", catLabel:"Timesheet Correction", route:["Timesheet Correction","Paid Early Out"], docs:"approval", note:"Aplica solo cuando la salida temprana pagada es menor a 4 horas." },
     { id:"s7", q:"Mi supervisor me pidi\u00F3 trabajar horas extra este fin de semana. \u00BFC\u00F3mo aseguro que me las paguen?", cat:"overtime", catLabel:"Overtime", route:["Overtime","Make-up hours? No"], docs:"approval" },
     { id:"s8", q:"Estuve enfermo(a), y mi supervisor aprob\u00F3 que trabaje el s\u00E1bado para recuperar el tiempo.", cat:"overtime", catLabel:"Overtime", route:["Overtime","Make-up hours? Yes"], docs:"approval" },
+    { id:"s9", q:"Mi cliente aprob\u00F3 un cambio permanente en mi horario \u2014 nuevas horas de entrada/salida o distintos d\u00EDas de descanso.", cat:"schedule", catLabel:"Cambio de horario \u00B7 CSM", route:["Schedule Change","CSM Process"], docs:"schedule", process:"csm",
+      note:"Esto no es un ticket \u2014 se gestiona con tu CSM. Env\u00EDale los datos de abajo." },
   ],
   docSets: {
     approval:["Aprobaci\u00F3n expl\u00EDcita y por escrito de tu supervisor","Fecha y hora visibles en la aprobaci\u00F3n"],
     proof:["Prueba de trabajo por las horas perdidas \u2014 correos, registros de llamadas, historial del navegador, cualquier cosa con fecha y hora","Fecha y hora en todo"],
+    schedule:["Hora de entrada (PST)","Hora de salida (PST)","D\u00EDas de descanso","Fecha de inicio del cambio","Captura de pantalla \u2014 mostrando la aprobaci\u00F3n del cliente"],
   },
   leaveCards: [
     { cls:"sick", num:"3", unit:"d\u00EDas \u00B7 enfermedad", title:"D\u00EDas por enfermedad", body:"Requiere captura de la aprobaci\u00F3n, con fecha y hora, de tu supervisor o CSM.", unlock:"Disponible desde el mes 3" },
@@ -728,6 +739,14 @@ function openScenario(i,btn,panel){
   const s = C.scenarios[i];
   const docs = C.docSets[s.docs] || [];
   const L = C.panelLabels;
+  const isCsm = s.process === "csm";
+  const heading = isCsm ? L.sendToCsm : L.haveReady;
+  const afterNote = isCsm ? L.afterCsm : L.afterFile;
+  const actionsHtml = isCsm
+    ? "<div class='actions'><button class='btn primary locked' id='submit-btn' aria-disabled='true' type='button'>"+L.copyTemplate+"</button></div>"+
+      "<p class='confirm-hint' id='copy-feedback' style='display:none'>"+esc(L.copied)+"</p>"
+    : "<div class='actions'><a class='btn primary locked' id='submit-btn' aria-disabled='true' href='"+SHARED.ticketUrl+"' target='_blank' rel='noopener'>"+L.submit+"</a>"+
+      "<a class='btn ghost' href='"+SHARED.timezoneConverter+"' target='_blank' rel='noopener'>"+L.convert+"</a></div>";
   panel.innerHTML =
     "<div class='pass-top'>"+
       "<div><span class='lab'>"+L.ticketType+"</span><span class='val'>"+s.route[0]+"</span></div>"+
@@ -736,15 +755,14 @@ function openScenario(i,btn,panel){
     "</div>"+
     "<div class='pass-body'>"+
     (s.note ? "<p class='note'>"+s.note+"</p>" : "")+
-    "<h4>"+L.haveReady+"</h4><ul class='req'>"+
+    "<h4>"+heading+"</h4><ul class='req'>"+
     docs.map(d=>"<li role='checkbox' aria-checked='false' tabindex='0'><span class='box' aria-hidden='true'></span><span>"+d+"</span></li>").join("")+
     "</ul>"+
     "<p class='confirm-hint'>"+esc(L.confirmHint)+"</p>"+
     videoEmbed(VIDEOS[s.id], s.route.join(" \u2014 "), C.watchLink)+
-    "<div class='after-file'>"+L.afterFile+"</div>"+
+    "<div class='after-file'>"+afterNote+"</div>"+
     "<div><span class='pacific'>"+L.pacific+"</span></div>"+
-    "<div class='actions'><a class='btn primary locked' id='submit-btn' aria-disabled='true' href='"+SHARED.ticketUrl+"' target='_blank' rel='noopener'>"+L.submit+"</a>"+
-    "<a class='btn ghost' href='"+SHARED.timezoneConverter+"' target='_blank' rel='noopener'>"+L.convert+"</a></div>"+
+    actionsHtml+
     "</div>";
   // checklist gating: submit unlocks only when every requirement is confirmed
   const items = panel.querySelectorAll(".req li");
@@ -759,6 +777,14 @@ function openScenario(i,btn,panel){
     li.addEventListener("click", toggle);
     li.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); toggle(); } });
   });
+  if(isCsm){
+    submitBtn.addEventListener("click", ()=>{
+      const template = docs.slice(0,4).map(d=>d+": ").join("\n") + "\n" + docs[4] + ": " + (LANG==="es" ? "(adjunta)" : "(attached)");
+      const done = ()=>{ const f=panel.querySelector("#copy-feedback"); if(f) f.style.display="block"; };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(template).then(done).catch(done); }
+      else { const ta=document.createElement("textarea"); ta.value=template; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(e){} ta.remove(); done(); }
+    });
+  }
   panel.classList.add("open");
   current = i;
   panel.scrollIntoView({behavior:"smooth",block:"nearest"});
