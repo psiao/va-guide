@@ -159,6 +159,89 @@
   .rules li{display:flex;gap:10px;font-size:14.5px;color:#E6E0D4}
   .rules li::before{content:'\2713';flex:none;font-weight:700;color:#F5B971}
 
+  /* ---------- retirement CTA + modal ---------- */
+  .retire-cta{background:linear-gradient(135deg,var(--cobalt-deep),var(--cobalt));color:#fff;border:2px solid var(--ink);border-radius:var(--radius);padding:28px 30px;box-shadow:0 5px 0 rgba(27,36,48,.3);display:flex;flex-wrap:wrap;align-items:center;gap:20px;justify-content:space-between}
+  .retire-cta .rc-text{max-width:560px}
+  .retire-cta h3{font-family:var(--disp);font-weight:800;font-size:clamp(20px,3vw,26px);margin-bottom:6px}
+  .retire-cta p{font-size:15px;color:#D6E2F8}
+  .retire-cta .btn{flex:none;background:var(--card);color:var(--ink);border-color:var(--ink);box-shadow:0 3px 0 rgba(27,36,48,.4)}
+  .modal-overlay{position:fixed;inset:0;background:rgba(20,36,48,.62);backdrop-filter:blur(3px);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:28px 16px;overflow-y:auto}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--paper);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:0 24px 60px -20px rgba(0,0,0,.55);width:100%;max-width:600px;position:relative;margin:auto}
+  .modal-close{position:absolute;top:12px;right:12px;z-index:5;width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);background:var(--card);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow)}
+  .modal-close:hover{background:var(--tangerine-tint)}
+  .rt-wrap{padding:30px 28px 26px}
+  .rt-brand{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:18px}
+  .rt-brand .dot{width:9px;height:9px;border-radius:50%;background:var(--tangerine)}
+  .rt-brand span{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt);font-weight:600}
+  .rt-path{display:flex;align-items:center;justify-content:center;margin:0 auto 22px;max-width:320px}
+  .rt-path .node{width:13px;height:13px;border-radius:50%;background:var(--line);flex:0 0 auto;transition:.4s}
+  .rt-path .seg{height:2px;background:var(--line);flex:1 1 auto;transition:.4s}
+  .rt-path .node.done{background:var(--cobalt)}
+  .rt-path .node.active{background:var(--tangerine);box-shadow:0 0 0 5px var(--tangerine-tint)}
+  .rt-path .seg.done{background:var(--cobalt)}
+  .rt-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 26px 26px}
+  .rt-step{animation:rise .4s ease-out both}
+  .rt-eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--tangerine);text-transform:uppercase;margin-bottom:10px}
+  .rt-card h1{font-family:var(--disp);font-weight:800;font-size:27px;line-height:1.12;color:var(--ink);letter-spacing:-.01em;max-width:none}
+  .rt-card h2{font-family:var(--disp);font-weight:700;font-size:22px;line-height:1.18;color:var(--ink)}
+  .rt-lede{color:var(--ink-soft);font-size:15.5px;margin-top:11px}
+  .rt-hint{color:var(--ink-soft);font-size:13.5px;margin-top:8px}
+  .rt-controls{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+  .rt-btn{font-family:var(--disp);font-size:15.5px;font-weight:700;border:2px solid var(--ink);cursor:pointer;border-radius:11px;padding:13px 16px;transition:transform .12s;text-align:left;width:100%;display:block;text-decoration:none}
+  .rt-btn:hover{transform:translateY(-2px)}
+  .rt-btn:active{transform:translateY(1px)}
+  .rt-primary{background:var(--cobalt);color:#fff;border-color:var(--cobalt-deep);text-align:center;box-shadow:0 3px 0 var(--cobalt-deep)}
+  a.rt-primary, a.rt-primary:hover{color:#fff;text-decoration:none}
+  .rt-primary:hover{background:var(--cobalt-deep)}
+  .rt-primary[disabled]{opacity:.4;pointer-events:none}
+  .rt-choice{background:var(--paper-deep);color:var(--ink);display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+  .rt-choice:hover{background:var(--cobalt-tint)}
+  .rt-choice .tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--cobalt);flex:0 0 auto;opacity:.5}
+  .rt-ghost{background:transparent;color:var(--ink-soft);font-weight:600;text-align:center;border-color:transparent;box-shadow:none;font-family:var(--body)}
+  .rt-ghost:hover{color:var(--ink);transform:none}
+  .rt-field{margin-top:20px}
+  .rt-field label{display:block;font-weight:600;font-size:14px;margin-bottom:8px;color:var(--ink)}
+  .rt-field input[type=date]{font-family:var(--body);font-size:16px;width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:11px;color:var(--ink);background:var(--card)}
+  .rt-field input[type=date]:focus{outline:none;border-color:var(--cobalt);box-shadow:0 0 0 4px var(--cobalt-tint)}
+  .rt-reveal{background:var(--cobalt-tint);border-radius:12px;padding:15px 16px;margin-top:18px;border-left:4px solid var(--tangerine)}
+  .rt-reveal .big{font-family:var(--disp);font-size:19px;color:var(--ink);font-weight:700}
+  .rt-reveal p{font-size:14px;color:var(--ink-soft);margin-top:5px}
+  .rt-badge{display:inline-block;background:var(--cobalt);color:#fff;font-family:var(--mono);font-weight:600;font-size:12.5px;padding:6px 14px;border-radius:999px;margin-top:12px}
+  .rt-result-head{text-align:center;margin-bottom:6px}
+  .rt-timeline{margin:24px 0 6px;padding-left:6px}
+  .rt-stop{display:flex;gap:15px;position:relative;padding-bottom:20px}
+  .rt-stop:last-child{padding-bottom:0}
+  .rt-rail{position:relative;flex:0 0 auto;width:16px;display:flex;justify-content:center}
+  .rt-rail::before{content:"";position:absolute;top:16px;bottom:-4px;width:2px;background:var(--line)}
+  .rt-stop:last-child .rt-rail::before{display:none}
+  .rt-marker{width:16px;height:16px;border-radius:50%;background:var(--card);border:3px solid var(--cobalt);z-index:1;margin-top:2px}
+  .rt-marker.reward{border-color:var(--tangerine);background:var(--tangerine)}
+  .rt-stop .date{font-weight:700;font-size:14px;color:var(--ink)}
+  .rt-stop .what{font-size:14px;color:var(--cobalt-deep);font-weight:700;margin-top:1px}
+  .rt-stop .note{font-size:13px;color:var(--ink-soft);margin-top:2px}
+  .rt-realize{background:var(--ink);color:#fff;border-radius:14px;padding:18px 20px;margin:20px 0}
+  .rt-realize .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#F5B971;font-weight:600}
+  .rt-realize .v{font-family:var(--disp);font-size:20px;font-weight:700;margin-top:6px;line-height:1.25}
+  .rt-realize .s{font-size:14px;color:#C9D4E4;margin-top:8px}
+  .rt-panel{border:2px solid var(--line);border-radius:12px;padding:15px 16px;margin-top:13px;background:var(--card)}
+  .rt-panel h3{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--tangerine);font-weight:700;margin-bottom:9px}
+  .rt-panel p{font-size:14.5px;color:var(--ink)}
+  .rt-money{font-family:var(--disp);font-weight:700;color:var(--cobalt-deep)}
+  .rt-checklist{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .rt-checklist li{display:flex;gap:10px;font-size:14px;color:var(--ink)}
+  .rt-checklist .c{color:var(--teal);font-weight:700;flex:0 0 auto}
+  .rt-appreciate{background:linear-gradient(135deg,#FBF1DD,#F6E4BE);border:2px solid var(--ink);border-radius:14px;padding:19px 22px;margin-bottom:18px;text-align:center}
+  .rt-ap-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--stamp);font-weight:700}
+  .rt-ap-title{font-family:var(--disp);font-size:20px;font-weight:700;margin-top:7px;line-height:1.25;color:var(--ink)}
+  .rt-ap-body{font-size:13.5px;color:#6b5423;margin-top:8px;line-height:1.55}
+  .rt-warn{background:var(--tangerine-tint);border-left:4px solid var(--tangerine);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:14px;color:#7a3418}
+  .rt-cat-hint{font-size:12.5px;color:var(--ink-soft);margin-top:10px;text-align:center}
+  .rt-cat-hint strong{color:var(--ink)}
+  .rt-disclaimer{font-size:12px;color:var(--ink-soft);margin-top:20px;text-align:center;line-height:1.55}
+  .rt-foot{text-align:center;margin-top:18px}
+  .rt-foot a{font-size:13.5px}
+
   /* ---------- video library ---------- */
   #library:not(.has-videos){display:none}
   .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
@@ -222,6 +305,20 @@
   </div>
 </section>
 
+<section id="retirement">
+  <div class="wrap">
+    <span class="stamp-label" data-t="retireStamp"></span>
+    <h2 data-t="retireH2"></h2>
+    <div class="retire-cta">
+      <div class="rc-text">
+        <h3 data-t="retireCardTitle"></h3>
+        <p data-t="retireCardBody"></p>
+      </div>
+      <button class="btn" id="retire-open"></button>
+    </div>
+  </div>
+</section>
+
 <section id="quicklinks">
   <div class="wrap">
     <span class="stamp-label" data-t="qlStamp"></span>
@@ -253,7 +350,17 @@
   <div class="wrap" data-t="footerNote"></div>
 </footer>
 
-<div class="fab-wrap">
+<div class="modal-overlay" id="retire-modal" role="dialog" aria-modal="true" aria-label="Retirement Path">
+  <div class="modal">
+    <button class="modal-close" id="retire-close" aria-label="Close">&times;</button>
+    <div class="rt-wrap">
+      <div class="rt-brand"><span class="dot"></span><span data-t="retireBrand"></span></div>
+      <div class="rt-path" id="rt-path" aria-hidden="true"></div>
+      <main class="rt-card" id="rt-card" role="main" aria-live="polite"></main>
+      <div class="rt-foot"><a id="rt-foot-link" href="#" target="_blank" rel="noopener"></a></div>
+    </div>
+  </div>
+</div>
   <button class="fab top" id="fab-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
   <button class="fab" id="fab-ticket" onclick="document.getElementById('triage').scrollIntoView({behavior:'smooth'})"></button>
 </div>
@@ -272,6 +379,7 @@ const SHARED = {
   hubstaffApp: "https://app.hubstaff.com",
   bankFeeForm: "https://forms.monday.com/forms/2255189029a75374ae78feb1f457120f?r=use1",
   referralPage: "https://virtualstaffingcareers.com/referral/",
+  milestoneTicket: "https://share.hsforms.com/141z0JGxQQZ2HOmcxsMSqeQ3es9o",
 };
 
 /* ============================================================
@@ -336,6 +444,12 @@ en: {
     title:"Ask before you file",
     body:"A ticket filed under the wrong type gets <b>declined</b>, and that delays the fix and your pay. Message your <b>CSM</b>, describe what happened, and they\u2019ll tell you exactly which ticket to file \u2014 then come back here and pick it." },
   fabTicket: "\u{1F3AB} Find my ticket",
+  retireStamp: "Your benefit", retireH2: "Your Retirement Path",
+  retireCardTitle: "See the retirement benefit your loyalty has earned",
+  retireCardBody: "A 1-minute self-check: answer three quick questions to see your group, when you vest, and when your payout arrives.",
+  retireOpen: "Check my retirement benefit \u2192",
+  retireBrand: "Legal Soft \u00B7 Your Retirement Benefit",
+  retireFootLink: "Questions about your benefit? Create a support ticket \u2192",
   videoBadge: "video", setup: "Set it up", watchLink: "Watch the video walkthrough",
   scenarios: [
     { id:"s1", q:"I was late, but my supervisor approved extending my shift to make up the time.", cat:"callin", catLabel:"Call-in notification", route:["Call-in Notification","Slide Shift"], docs:"approval" },
@@ -482,6 +596,12 @@ es: {
     title:"Pregunta antes de enviar",
     body:"Un ticket enviado con el tipo equivocado es <b>rechazado</b>, y eso retrasa la soluci\u00F3n y tu pago. Escribe a tu <b>CSM</b>, describe lo que pas\u00F3, y te dir\u00E1 exactamente qu\u00E9 ticket enviar \u2014 luego regresa aqu\u00ED y el\u00EDgelo." },
   fabTicket: "\u{1F3AB} Encontrar mi ticket",
+  retireStamp: "Tu beneficio", retireH2: "Tu Camino al Retiro",
+  retireCardTitle: "Conoce el beneficio de retiro que tu lealtad ha ganado",
+  retireCardBody: "Una autoevaluaci\u00F3n de 1 minuto: responde tres preguntas r\u00E1pidas para ver tu grupo, cu\u00E1ndo se consolida (vesting) y cu\u00E1ndo llega tu pago.",
+  retireOpen: "Ver mi beneficio de retiro \u2192",
+  retireBrand: "Legal Soft \u00B7 Tu Beneficio de Retiro",
+  retireFootLink: "\u00BFPreguntas sobre tu beneficio? Crea un ticket de soporte \u2192",
   videoBadge: "video", setup: "C\u00F3mo configurarlo", watchLink: "Ver el video",
   scenarios: [
     { id:"s1", q:"Llegu\u00E9 tarde, pero mi supervisor aprob\u00F3 extender mi turno para recuperar el tiempo.", cat:"callin", catLabel:"Call-in Notification", route:["Call-in Notification","Slide Shift"], docs:"approval" },
@@ -684,6 +804,11 @@ function renderInner(){
   // floating action button labels
   document.getElementById("fab-ticket").textContent = C.fabTicket;
 
+  // retirement CTA labels
+  document.getElementById("retire-open").textContent = C.retireOpen;
+  document.getElementById("rt-foot-link").textContent = C.retireFootLink;
+  document.getElementById("rt-foot-link").href = SHARED.milestoneTicket;
+
   // leave cards
   document.getElementById("leave-grid").innerHTML = C.leaveCards.map(l=>
     "<div class='leave "+l.cls+"'><div class='num'>"+l.num+"</div><div class='unit'>"+esc(l.unit)+"</div>"+
@@ -812,6 +937,216 @@ function setLang(l){
   history.replaceState(null, "", url);
   render();
 }
+
+/* ============================================================
+   RETIREMENT PATH WIZARD (English only — see note in header).
+   Rethemed from the original tool; benefit logic unchanged.
+   ============================================================ */
+(function(){
+  const app = document.getElementById('rt-card');
+  const pathEl = document.getElementById('rt-path');
+  const overlay = document.getElementById('retire-modal');
+  const TICKET_URL = SHARED.milestoneTicket;
+  const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+  const state = { dep:null, active:null, continuous:null, gap:null };
+  const TOTAL_NODES = 4;
+
+  const MO = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const fmt = d => MO[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+  const addYears = (d,n) => new Date(d.getFullYear()+n, d.getMonth(), d.getDate());
+  const addDays = (d,n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+  const monthsBetween = (a,b) => (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()) + (b.getDate()>=a.getDate()?0:-1);
+  function quarterlyPayout(vest){
+    const m=vest.getMonth(), y=vest.getFullYear();
+    if(m<=2) return new Date(y,4,15);
+    if(m<=5) return new Date(y,7,15);
+    if(m<=8) return new Date(y,10,15);
+    return new Date(y+1,1,15);
+  }
+  function classify(dep){
+    const b1=new Date(2025,5,1), b2=new Date(2025,8,1), b3=new Date(2026,4,1);
+    if(dep < b1) return "1"; if(dep < b2) return "2"; if(dep < b3) return "3"; return "none";
+  }
+  const MILESTONE = "After that, the Milestone Program takes over \u2014 our way of thanking you for staying: a flat <span class='rt-money'>$750</span> for every year you continue with Legal Soft. So it\u2019s two separate rewards at two different times \u2014 your Retirement Fund lands first as a lump sum, and the Milestone reward comes each year after";
+  const GROUPS = {
+    "1":{name:"Group 1", vestYrs:3, vestLabel:"3 years", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 everything you\u2019ve built up over your three years, paid to you as a single lump sum once you vest. "+MILESTONE+"."},
+    "2":{name:"Group 2", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 a <span class='rt-money'>$360</span> vested benefit, paid to you as a single lump sum once you vest. "+MILESTONE+"."},
+    "3":{name:"Group 3", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 a <span class='rt-money'>$180</span> vested benefit, paid to you as a single lump sum once you vest. "+MILESTONE+"."}
+  };
+  function drawPath(active){
+    let html="";
+    for(let i=0;i<TOTAL_NODES;i++){
+      const cls = i<active ? "done" : (i===active ? "active":"");
+      html += "<div class='node "+cls+"'></div>";
+      if(i<TOTAL_NODES-1) html += "<div class='seg "+(i<active?'done':'')+"'></div>";
+    }
+    pathEl.innerHTML = html;
+  }
+  function choiceBtn(label, onClick){
+    const b=document.createElement('button');
+    b.className="rt-btn rt-choice"; b.innerHTML="<span class='tick'></span><span>"+label+"</span>";
+    b.onclick=onClick; return b;
+  }
+  function render(node, html){ drawPath(node); app.innerHTML="<div class='rt-step'>"+html+"</div>"; }
+  function ticketPanel(head, body){
+    return "<div class='rt-panel' style='border-color:var(--tangerine)'><h3>"+head+"</h3><p style='margin-bottom:12px'>"+body+"</p>"+
+      "<a class='rt-btn rt-primary' href='"+TICKET_URL+"' target='_blank' rel='noopener'>Create a support ticket</a>"+
+      "<p class='rt-cat-hint'>On the form, choose <strong>\u201CLegal Soft Milestone Program\u201D</strong> as the issue category.</p></div>";
+  }
+
+  function intro(){
+    render(0, "<div class='rt-eyebrow'>A 1-minute self-check</div>"+
+      "<h1>Where are you on your retirement path?</h1>"+
+      "<p class='rt-lede'>Your time with Legal Soft is building something real. Answer three quick questions to see the retirement benefit your loyalty has earned \u2014 your group, when you vest, and when your payout arrives.</p>"+
+      "<div class='rt-controls'><button class='rt-btn rt-primary' id='rt-go'>Start</button></div>"+
+      "<p class='rt-disclaimer'>This is a tentative estimate to help you understand your benefit. All amounts and dates are confirmed by Ops Support against your official records.</p>");
+    document.getElementById('rt-go').onclick=stepDate;
+  }
+  function stepDate(){
+    render(1, "<div class='rt-eyebrow'>Question 1 of 3</div>"+
+      "<h2>When did you start as a Legal&nbsp;Soft VA?</h2>"+
+      "<p class='rt-hint'>We mean your <strong>Deployment Date</strong> \u2014 your first day actually working with the client. Not your hire date, interview date, or contract date.</p>"+
+      "<div class='rt-field'><label for='rt-dep'>Deployment date (first day with the client)</label><input type='date' id='rt-dep' max='2030-12-31'></div>"+
+      "<div class='rt-controls'><button class='rt-btn rt-primary' id='rt-next' disabled>Continue</button></div>");
+    const inp=document.getElementById('rt-dep'), nxt=document.getElementById('rt-next');
+    if(state.dep){ inp.valueAsDate=state.dep; nxt.disabled=false; }
+    inp.oninput=()=>{ nxt.disabled=!inp.value; };
+    nxt.onclick=()=>{ if(!inp.value) return; const p=inp.value.split('-'); state.dep=new Date(+p[0],+p[1]-1,+p[2]); revealGroup(); };
+  }
+  function revealGroup(){
+    const g=classify(state.dep);
+    if(g==="none"){
+      render(1, "<div class='rt-eyebrow'>Question 1 of 3</div><h2>Thanks!</h2>"+
+        "<div class='rt-warn'>Based on that start date ("+fmt(state.dep)+"), your benefit enrollment hasn\u2019t been set up in the program yet. Please create a ticket so Ops Support can confirm your details.</div>"+
+        "<p class='rt-cat-hint' style='text-align:left;margin:8px 0 4px'>On the form, choose <strong>\u201CLegal Soft Milestone Program\u201D</strong> as the issue category.</p>"+
+        "<div class='rt-controls'><a class='rt-btn rt-primary' href='"+TICKET_URL+"' target='_blank' rel='noopener'>Create a support ticket</a>"+
+        "<button class='rt-btn rt-ghost' id='rt-back'>\u2190 Change date</button></div>");
+      document.getElementById('rt-back').onclick=stepDate; return;
+    }
+    const G=GROUPS[g];
+    render(1, "<div class='rt-eyebrow'>Here\u2019s your first answer</div><h2>You\u2019re in "+G.name+".</h2>"+
+      "<div class='rt-reveal'><div class='big'>You started "+fmt(state.dep)+".</div>"+
+      "<p>That means your benefit vests after <strong>"+G.vestLabel+"</strong>. Let\u2019s find out if you\u2019ve reached it yet.</p></div>"+
+      "<div class='rt-controls'><button class='rt-btn rt-primary' id='rt-next'>Next question</button>"+
+      "<button class='rt-btn rt-ghost' id='rt-back'>\u2190 Change my date</button></div>");
+    document.getElementById('rt-next').onclick=stepActive;
+    document.getElementById('rt-back').onclick=stepDate;
+  }
+  function stepActive(){
+    render(2, "<div class='rt-eyebrow'>Question 2 of 3</div>"+
+      "<h2>Are you active and working full-time right now?</h2>"+
+      "<p class='rt-hint'>Your payout is released only while you\u2019re active and full-time \u2014 so this is part of being eligible.</p>"+
+      "<div class='rt-controls' id='rt-opts'></div>");
+    const o=document.getElementById('rt-opts');
+    o.appendChild(choiceBtn("Yes, I\u2019m active full-time", ()=>{state.active=true; stepContinuous();}));
+    o.appendChild(choiceBtn("Not right now", ()=>{state.active=false; showInactive();}));
+  }
+  function stepContinuous(){
+    render(3, "<div class='rt-eyebrow'>Question 3 of 3</div>"+
+      "<h2>Have you ever separated and then returned?</h2>"+
+      "<p class='rt-hint'>A separation is a break in service. Being realigned means returning to a contract after that break.</p>"+
+      "<div class='rt-controls' id='rt-opts'></div>");
+    const o=document.getElementById('rt-opts');
+    o.appendChild(choiceBtn("No, I\u2019ve stayed continuously", ()=>{state.continuous=true; state.gap=null; showResult();}));
+    o.appendChild(choiceBtn("Yes, I separated and came back", ()=>{state.continuous=false; stepGap();}));
+  }
+  function stepGap(){
+    render(3, "<div class='rt-eyebrow'>One more thing</div>"+
+      "<h2>How long was it between your separation date and your return?</h2>"+
+      "<p class='rt-hint'>The length of the gap decides what happens to the benefits you\u2019d already earned.</p>"+
+      "<div class='rt-controls' id='rt-opts'></div>");
+    const o=document.getElementById('rt-opts');
+    o.appendChild(choiceBtn("Within 30 days", ()=>{state.gap="le30"; showResult();}));
+    o.appendChild(choiceBtn("31 to 90 days", ()=>{state.gap="mid"; showResult();}));
+    o.appendChild(choiceBtn("More than 90 days", ()=>{state.gap="gt90"; showLongGap();}));
+  }
+  function showResult(){
+    const g=classify(state.dep); const G=GROUPS[g];
+    const PROGRAM_START = new Date(2023,5,1);
+    let benefitStart = state.dep, floored = false;
+    if(g==="1" && benefitStart < PROGRAM_START){ benefitStart = PROGRAM_START; floored = true; }
+    const vest = addYears(benefitStart, G.vestYrs);
+    const transition = addDays(vest,1);
+    const payout = quarterlyPayout(vest);
+    const vested = TODAY >= vest;
+    const monthsToVest = monthsBetween(TODAY, vest);
+    let stops = [];
+    stops.push({date:fmt(state.dep), what:"You started", note:"Your retirement benefit clock begins here.", cls:""});
+    stops.push({date:fmt(vest), what:"You vest ("+G.vestLabel+")", note: floored ? "Your Retirement Fund vests. (For VAs who started before June 2023, the benefit period begins June 1, 2023.)" : "Your Retirement Fund fully vests.", cls:"reward"});
+    stops.push({date:fmt(transition), what:"Move into the Milestone Program", note:"The day after you vest.", cls:""});
+    stops.push({date:fmt(payout), what:"Retirement Fund payout", note:"Your vested fund is released on the quarterly schedule after your vesting date.", cls:"reward"});
+    stops.push({date:"Each year after", what:"$750 Milestone benefit", note:"A separate, flat payout that follows \u2014 this is the Milestone Program, which starts once your Retirement Fund has been paid. No staggered amounts.", cls:"reward"});
+    const timelineHtml = stops.map(s=>"<div class='rt-stop'><div class='rt-rail'><div class='rt-marker "+s.cls+"'></div></div>"+
+      "<div><div class='date'>"+s.date+"</div><div class='what'>"+s.what+"</div><div class='note'>"+s.note+"</div></div></div>").join('');
+    let apprTitle, apprBody, realizeK, realizeV, realizeS;
+    if(vested){
+      apprTitle="Thank you for your "+(G.vestYrs===1?"first year":G.vestLabel)+" with Legal Soft.";
+      apprBody="Choosing to grow your career with us this long is a real commitment. Reaching this milestone is something to be proud of \u2014 and this benefit exists to honor your loyalty.";
+      realizeK="You\u2019ve reached it";
+      realizeV="Congratulations \u2014 you\u2019ve reached your "+G.vestYrs+"-year milestone on "+fmt(vest)+".";
+      realizeS="That\u2019s a genuine achievement. Your payout is scheduled for "+fmt(payout)+" \u2014 as long as you\u2019re active and full-time, you\u2019re in the payout window.";
+    } else {
+      apprTitle="Thank you for growing with Legal Soft.";
+      apprBody="You\u2019re on your way to an important milestone, and every month of your commitment already matters to us. Here\u2019s what your loyalty is building toward.";
+      realizeK="Where you are now";
+      realizeV="You vest on "+fmt(vest)+" \u2014 about "+Math.max(0,monthsToVest)+" month"+(monthsToVest===1?"":"s")+" away.";
+      realizeS="Every month you stay brings you closer, and it already counts. Once you reach it, your payout follows on "+fmt(payout)+".";
+    }
+    let notes="";
+    if(state.continuous===false && state.gap==="le30"){
+      notes += "<div class='rt-panel'><h3>Your break in service</h3><p>You were realigned within 30 days of your separation, so you keep every benefit you had already accrued and continue to accrue at your original monthly rate. Your path below is unchanged.</p></div>";
+    } else if(state.continuous===false && state.gap==="mid"){
+      notes += "<div class='rt-panel' style='border-color:var(--tangerine)'><h3>Your break in service</h3><p>You were realigned after the 30-day grace period but within 90 days, so you keep every benefit you had already accrued and your vesting still stands. From your return onward, new benefits accrue at your new contract\u2019s monthly rate, which is lower \u2014 so your final amount may differ from the standard figure above. Ops Support can confirm your exact amount.</p></div>";
+    }
+    render(4, "<div class='rt-appreciate'><div class='rt-ap-eyebrow'>A milestone in your career</div>"+
+      "<div class='rt-ap-title'>"+apprTitle+"</div><div class='rt-ap-body'>"+apprBody+"</div></div>"+
+      "<div class='rt-result-head'><div class='rt-eyebrow'>Your retirement path</div><h2>Here\u2019s where you stand.</h2>"+
+      "<div class='rt-badge'>"+G.name+" \u00B7 vests after "+G.vestLabel+"</div></div>"+
+      "<div class='rt-realize'><div class='k'>"+realizeK+"</div><div class='v'>"+realizeV+"</div><div class='s'>"+realizeS+"</div></div>"+
+      "<div class='rt-timeline'>"+timelineHtml+"</div>"+
+      "<div class='rt-panel'><h3>What you receive</h3><p>"+G.reward+"</p></div>"+
+      "<div class='rt-panel'><h3>Why the payout isn\u2019t the same day</h3><p>Hitting your vesting date means you\u2019ve <em>earned</em> the benefit \u2014 but the money won\u2019t land that exact day, and that\u2019s completely normal. Behind the scenes your fund is finalized, your records are checked, and payroll releases it on the company\u2019s regular payout schedule: the 15th, usually within 30\u201345 days of your vesting date. Nothing is stuck, and there\u2019s nothing you need to chase \u2014 it\u2019s simply the standard process every payout goes through.</p></div>"+
+      "<div class='rt-panel'><h3>To receive your payout you need</h3><ul class='rt-checklist'>"+
+      "<li><span class='c'>\u2713</span> To be active and full-time when it\u2019s paid</li>"+
+      "<li><span class='c'>\u2713</span> Your eligibility and records validated</li>"+
+      "<li><span class='c'>\u2713</span> Payroll processing</li>"+
+      "<li><span class='c'>\u2713</span> Leadership review and approval</li></ul></div>"+
+      notes+
+      "<div class='rt-panel' style='border-color:var(--tangerine)'><h3>Still have questions?</h3>"+
+      "<p style='margin-bottom:12px'>Create a ticket and Ops Support will follow up with your official details.</p>"+
+      "<a class='rt-btn rt-primary' href='"+TICKET_URL+"' target='_blank' rel='noopener'>Create a support ticket</a>"+
+      "<p class='rt-cat-hint'>On the form, choose <strong>\u201CLegal Soft Milestone Program\u201D</strong> as the issue category.</p></div>"+
+      "<p class='rt-disclaimer'>All amounts and dates shown here are tentative estimates, not a guarantee of payment. Your official group, vesting dates, and amounts are confirmed by Ops Support against validated records.</p>"+
+      "<div class='rt-controls'><button class='rt-btn rt-ghost' id='rt-restart'>\u21BA Start over</button></div>");
+    document.getElementById('rt-restart').onclick=resetAll;
+  }
+  function showInactive(){
+    render(4, "<div class='rt-result-head'><div class='rt-eyebrow'>Your status</div><h2>You\u2019re not eligible for a payout just yet.</h2></div>"+
+      "<div class='rt-realize'><div class='k'>Why</div><div class='v'>Retirement payouts are released only while you\u2019re active and working full-time.</div>"+
+      "<div class='s'>Since you\u2019re not active full-time right now, there isn\u2019t a payout to process at this moment. If your status changes, your eligibility can pick back up. Ops Support can explain exactly where you stand.</div></div>"+
+      ticketPanel("Get your details","Reach out to Ops Support to understand your situation.")+
+      "<p class='rt-disclaimer'>Eligibility, amounts, and dates are confirmed by Ops Support against validated records.</p>"+
+      "<div class='rt-controls'><button class='rt-btn rt-ghost' id='rt-restart'>\u21BA Start over</button></div>");
+    document.getElementById('rt-restart').onclick=resetAll;
+  }
+  function showLongGap(){
+    render(4, "<div class='rt-result-head'><div class='rt-eyebrow'>Your status</div><h2>Let\u2019s have the helpdesk check your record.</h2></div>"+
+      "<div class='rt-realize'><div class='k'>Why</div><div class='v'>Because your break was longer than 90 days, you\u2019re treated as a new hire.</div>"+
+      "<div class='s'>Any retirement benefits you had accrued before are forfeited, and your accrual restarts from your new hire date under your new contract\u2019s terms \u2014 which usually means the newer version of the program (Group 2 or Group 3). The helpdesk can confirm your current group, vesting date, and payout date.</div></div>"+
+      ticketPanel("Confirm your status","The helpdesk can tell you your current group, vesting date, and payout date.")+
+      "<p class='rt-disclaimer'>Your official group, dates, and amounts are confirmed by Ops Support against validated records.</p>"+
+      "<div class='rt-controls'><button class='rt-btn rt-ghost' id='rt-restart'>\u21BA Start over</button></div>");
+    document.getElementById('rt-restart').onclick=resetAll;
+  }
+  function resetAll(){ state.dep=null; state.active=null; state.continuous=null; state.gap=null; intro(); }
+
+  function openModal(){ resetAll(); overlay.classList.add('open'); document.body.style.overflow='hidden'; document.getElementById('retire-close').focus(); }
+  function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+  document.getElementById('retire-open').addEventListener('click', openModal);
+  document.getElementById('retire-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && overlay.classList.contains('open')) closeModal(); });
+})();
 
 render();
 </script>
