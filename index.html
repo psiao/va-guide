@@ -242,6 +242,25 @@
   .rt-foot{text-align:center;margin-top:18px}
   .rt-foot a{font-size:13.5px}
 
+  /* ---------- EID gate ---------- */
+  .eid-gate{position:fixed;inset:0;z-index:200;background:var(--paper);background-image:radial-gradient(rgba(27,36,48,.05) 1px,transparent 1px);background-size:22px 22px;display:flex;align-items:center;justify-content:center;padding:24px}
+  .eid-gate.hidden{display:none}
+  .eid-card{background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:0 8px 0 rgba(27,36,48,.18);max-width:440px;width:100%;padding:34px 30px 28px;text-align:center}
+  .eid-badge{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:2px solid var(--stamp);color:var(--stamp);border-radius:8px;padding:5px 12px;transform:rotate(-2deg);display:inline-block;margin-bottom:18px}
+  .eid-card h2{font-family:var(--disp);font-weight:800;font-size:26px;line-height:1.12;margin-bottom:8px}
+  .eid-card p{color:var(--ink-soft);font-size:15px;margin-bottom:20px}
+  .eid-input{font-family:var(--mono);font-size:20px;font-weight:600;text-align:center;letter-spacing:.08em;text-transform:uppercase;width:100%;padding:15px 16px;border:2px solid var(--line);border-radius:12px;color:var(--ink);background:var(--paper)}
+  .eid-input:focus{outline:none;border-color:var(--cobalt);box-shadow:0 0 0 4px var(--cobalt-tint)}
+  .eid-input.err{border-color:var(--tangerine);box-shadow:0 0 0 4px var(--tangerine-tint)}
+  .eid-hint{font-size:13px;color:var(--ink-soft);margin-top:12px;min-height:20px}
+  .eid-hint.err{color:var(--tangerine);font-weight:600}
+  .eid-btn{font-family:var(--disp);font-weight:700;font-size:16px;width:100%;margin-top:18px;padding:14px;border:2px solid var(--cobalt-deep);border-radius:12px;background:var(--cobalt);color:#fff;cursor:pointer;box-shadow:0 3px 0 var(--cobalt-deep);transition:transform .12s}
+  .eid-btn:hover{transform:translateY(-2px)}
+  .eid-btn:active{transform:translateY(1px)}
+  .eid-lang{margin-top:20px;display:flex;gap:8px;justify-content:center}
+  .eid-lang button{font-family:var(--mono);font-size:12px;font-weight:600;padding:6px 14px;border:2px solid var(--ink);background:var(--card);border-radius:8px;cursor:pointer;color:var(--ink)}
+  .eid-lang button.on{background:var(--ink);color:var(--paper)}
+
   /* ---------- collapsible section ---------- */
   details.section-fold{background:transparent;border:none;box-shadow:none;margin:0}
   details.section-fold > summary{padding:14px 16px 14px 18px;margin-bottom:0;display:flex;align-items:center;gap:14px;cursor:pointer;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform .12s, box-shadow .12s, background .12s}
@@ -278,6 +297,21 @@
 </style>
 </head>
 <body>
+
+<div class="eid-gate" id="eid-gate">
+  <div class="eid-card">
+    <div class="eid-badge" id="eid-badge"></div>
+    <h2 id="eid-title"></h2>
+    <p id="eid-sub"></p>
+    <input type="text" class="eid-input" id="eid-input" autocomplete="off" spellcheck="false" aria-label="Employee ID" maxlength="8">
+    <div class="eid-hint" id="eid-hint"></div>
+    <button class="eid-btn" id="eid-btn"></button>
+    <div class="eid-lang">
+      <button id="eid-en" onclick="setLang('en')">EN</button>
+      <button id="eid-es" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+</div>
 
 <header>
   <div class="wrap">
@@ -391,7 +425,7 @@
 </section>
 
 <footer>
-  <div class="wrap" data-t="footerNote"></div>
+  <div class="wrap"><span data-t="footerNote"></span> &nbsp;\u00B7&nbsp; <a href="#" onclick="changeEID();return false;" id="eid-change-link"></a></div>
 </footer>
 
 <div class="modal-overlay" id="retire-modal" role="dialog" aria-modal="true" aria-label="Retirement Path">
@@ -455,6 +489,12 @@ const A_CAL_ES = "<a href='"+SHARED.payrollCalendar+"' target='_blank' rel='noop
 const CONTENT = {
 en: {
   eyebrow: "Legal Soft \u00B7 Operations Support \u00B7 Virtual Assistants",
+  eidBadge:"Legal Soft VAs only", eidTitle:"Enter your Employee ID",
+  eidSub:"This guide is for Legal Soft VAs. Enter your Employee ID to continue \u2014 we\u2019ll also use it to pre-fill your ticket forms so you don\u2019t have to retype it.",
+  eidPlaceholder:"Your Employee ID",
+  eidBtn:"Enter the guide",
+  eidErr:"That EID isn\u2019t recognized. Enter your Legal Soft Employee ID, or ask your CSM if you\u2019re unsure of it.",
+  eidChange:"Not you? Change EID",
   admit: "Admit one \u00B7 New hire",
   hero: "Clock in. Get paid.<br><span class='hl'>Fix anything in between.</span>",
   sub: "Time tracking, attendance changes, tickets, and time off \u2014 the whole playbook on one page.",
@@ -610,6 +650,12 @@ en: {
 },
 es: {
   eyebrow: "Legal Soft \u00B7 Operations Support \u00B7 Asistentes Virtuales",
+  eidBadge:"Solo VAs de Legal Soft", eidTitle:"Ingresa tu ID de empleado",
+  eidSub:"Esta gu\u00EDa es para los VAs de Legal Soft. Ingresa tu ID de empleado para continuar \u2014 tambi\u00E9n lo usaremos para pre-llenar tus formularios de tickets y que no tengas que escribirlo de nuevo.",
+  eidPlaceholder:"Tu ID de empleado",
+  eidBtn:"Entrar a la gu\u00EDa",
+  eidErr:"Ese EID no se reconoce. Ingresa tu ID de empleado de Legal Soft, o pregunta a tu CSM si no lo sabes.",
+  eidChange:"\u00BFNo eres t\u00FA? Cambiar EID",
   admit: "Entrada \u00B7 Nuevo ingreso",
   hero: "Inicia tu turno. Asegura tu pago.<br><span class='hl'>Resuelve cualquier eventualidad en el camino.</span>",
   sub: "Registro de horas, cambios de asistencia, tickets y d\u00EDas libres \u2014 todo el manual en una sola p\u00E1gina.",
@@ -773,6 +819,7 @@ let current = -1;
 
 /* If a field is ever missing from the "es" block (e.g. after a
    content edit), fall back to English instead of breaking. */
+function setText(id, txt){ const el=document.getElementById(id); if(el) el.textContent = txt; }
 function getContent(){
   if(LANG === "en") return CONTENT.en;
   return Object.assign({}, CONTENT.en, CONTENT[LANG] || {});
@@ -821,6 +868,13 @@ function renderInner(){
   document.getElementById("btn-en").classList.toggle("on", LANG==="en");
   document.getElementById("btn-es").classList.toggle("on", LANG==="es");
 
+  // EID gate text (updates on language switch too)
+  setText("eid-badge", C.eidBadge); setText("eid-title", C.eidTitle); setText("eid-sub", C.eidSub);
+  setText("eid-btn", C.eidBtn);
+  const eidInput = document.getElementById("eid-input"); if(eidInput) eidInput.placeholder = C.eidPlaceholder;
+  document.getElementById("eid-en").classList.toggle("on", LANG==="en");
+  document.getElementById("eid-es").classList.toggle("on", LANG==="es");
+
   document.querySelectorAll("[data-t]").forEach(el=>{ el.textContent = C[el.dataset.t]; });
   document.getElementById("hero").innerHTML = C.hero;
 
@@ -850,6 +904,9 @@ function renderInner(){
   grid.appendChild(ns);
   grid.appendChild(panel);
   current = -1;
+
+  // footer change-EID link
+  setText("eid-change-link", C.eidChange);
 
   // floating action button labels
   document.getElementById("fab-ticket").textContent = C.fabTicket;
@@ -1199,6 +1256,49 @@ function setLang(l){
   document.getElementById('retire-close').addEventListener('click', closeModal);
   overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape' && overlay.classList.contains('open')) closeModal(); });
+})();
+
+/* ============================================================
+   EMPLOYEE ID GATE
+   Format check only (VS+5 digits or MLG+4 digits). This is a
+   convenience + tone gate, NOT access control: a static page
+   cannot truly authenticate. It also stores the EID for the
+   session and makes it available to pre-fill forms.
+   ============================================================ */
+window.VA_EID = null;
+(function(){
+  const EID_RE = /^(VS\d{5}|MLG\d{4})$/;
+  const gate = document.getElementById('eid-gate');
+  const input = document.getElementById('eid-input');
+  const btn = document.getElementById('eid-btn');
+  const hint = document.getElementById('eid-hint');
+
+  let stored = null;
+  try { stored = sessionStorage.getItem('va_eid'); } catch(e){}
+  if(stored && EID_RE.test(stored)){ window.VA_EID = stored; gate.classList.add('hidden'); }
+
+  function attempt(){
+    const val = (input.value||'').toUpperCase().replace(/[\s-]/g,'').trim();
+    if(EID_RE.test(val)){
+      window.VA_EID = val;
+      try { sessionStorage.setItem('va_eid', val); } catch(e){}
+      gate.classList.add('hidden');
+      hint.textContent=''; hint.classList.remove('err'); input.classList.remove('err');
+    } else {
+      const C = getContent();
+      hint.textContent = C.eidErr; hint.classList.add('err'); input.classList.add('err');
+      input.focus();
+    }
+  }
+  btn.addEventListener('click', attempt);
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter') attempt(); });
+  input.addEventListener('input', ()=>{ input.classList.remove('err'); hint.classList.remove('err'); hint.textContent=''; });
+  if(!window.VA_EID) setTimeout(()=>input.focus(), 100);
+
+  window.changeEID = function(){
+    try { sessionStorage.removeItem('va_eid'); } catch(e){}
+    window.VA_EID = null; input.value=''; gate.classList.remove('hidden'); setTimeout(()=>input.focus(),100);
+  };
 })();
 
 render();
