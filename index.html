@@ -242,6 +242,32 @@
   .rt-foot{text-align:center;margin-top:18px}
   .rt-foot a{font-size:13.5px}
 
+  /* ---------- collapsible section ---------- */
+  details.section-fold{background:transparent;border:none;box-shadow:none;margin:0}
+  details.section-fold > summary{padding:14px 16px 14px 18px;margin-bottom:0;display:flex;align-items:center;gap:14px;cursor:pointer;background:var(--card);border:2px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform .12s, box-shadow .12s, background .12s}
+  details.section-fold > summary:hover{transform:translateY(-2px);box-shadow:0 5px 0 rgba(27,36,48,.18);background:var(--cobalt-tint)}
+  details.section-fold > summary::-webkit-details-marker{display:none}
+  details.section-fold > summary h2{margin-bottom:0}
+  details.section-fold[open] > summary{border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:0;background:var(--ink)}
+  details.section-fold[open] > summary h2{color:#fff}
+  details.section-fold[open] > summary:hover{transform:none;box-shadow:var(--shadow)}
+  details.section-fold > summary .fold-count{flex:none;background:var(--cobalt);color:#fff;border-radius:999px;font-family:var(--mono);font-size:12px;font-weight:600;padding:2px 10px}
+  details.section-fold[open] > summary .fold-count{background:var(--tangerine)}
+  details.section-fold > summary .fold-cta{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:10px;font-family:var(--disp);font-size:14px;font-weight:700;letter-spacing:.02em;color:var(--cobalt)}
+  details.section-fold[open] > summary .fold-cta{color:#fff}
+  details.section-fold > summary .fold-circle{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);background:var(--cobalt);color:#fff;display:grid;place-items:center;font-size:24px;line-height:1;box-shadow:0 2px 0 var(--cobalt-deep)}
+  details.section-fold[open] > summary .fold-circle{background:var(--card);color:var(--ink);border-color:var(--card)}
+  details.section-fold > summary .fold-circle .plus{display:block}
+  details.section-fold > summary .fold-circle .minus{display:none}
+  details.section-fold[open] > summary .fold-circle .plus{display:none}
+  details.section-fold[open] > summary .fold-circle .minus{display:block}
+  details.section-fold[open] > summary .lbl-show{display:none}
+  details.section-fold:not([open]) > summary .lbl-hide{display:none}
+  .fold-body{border:2px solid var(--ink);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:18px 16px 4px;background:var(--paper)}
+  .fold-body > div > details:last-child{margin-bottom:14px}
+  .fold-peek{color:var(--ink-soft);font-size:14.5px;margin:12px 2px 0}
+  details.section-fold[open] ~ .fold-peek{display:none}
+
   /* ---------- video library ---------- */
   #library:not(.has-videos){display:none}
   .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
@@ -292,16 +318,34 @@
 <section id="howto">
   <div class="wrap">
     <span class="stamp-label" data-t="howtoStamp"></span>
-    <h2 data-t="howtoH2"></h2>
-    <div id="howto-list"></div>
+    <details class="section-fold" id="howto-fold">
+      <summary>
+        <h2 data-t="howtoH2"></h2>
+        <span class="fold-count" id="howto-count"></span>
+        <span class="fold-cta"><span class="lbl-show" data-t="foldShow"></span><span class="lbl-hide" data-t="foldHide"></span>
+          <span class="fold-circle"><span class="plus">+</span><span class="minus">&minus;</span></span>
+        </span>
+      </summary>
+      <div class="fold-body"><div id="howto-list"></div></div>
+    </details>
+    <p class="fold-peek" data-t="howtoPeek"></p>
   </div>
 </section>
 
 <section id="practices">
   <div class="wrap">
     <span class="stamp-label" data-t="practiceStamp"></span>
-    <h2 data-t="practiceH2"></h2>
-    <div id="practice-list"></div>
+    <details class="section-fold" id="practice-fold">
+      <summary>
+        <h2 data-t="practiceH2"></h2>
+        <span class="fold-count" id="practice-count"></span>
+        <span class="fold-cta"><span class="lbl-show" data-t="foldShow"></span><span class="lbl-hide" data-t="foldHide"></span>
+          <span class="fold-circle"><span class="plus">+</span><span class="minus">&minus;</span></span>
+        </span>
+      </summary>
+      <div class="fold-body"><div id="practice-list"></div></div>
+    </details>
+    <p class="fold-peek" data-t="practicePeek"></p>
   </div>
 </section>
 
@@ -420,6 +464,9 @@ en: {
   leaveStamp: "Time off", leaveH2: "Your leave, per year",
   howtoStamp: "Hubstaff basics", howtoH2: "Quick how-tos",
   practiceStamp: "Work smart", practiceH2: "Best practices",
+  foldShow: "Show", foldHide: "Hide",
+  howtoPeek: "Step-by-step guides for install, timesheets, screenshots, time zones, and more \u2014 tap to open when you need one.",
+  practicePeek: "The habits that keep your pay accurate and your record clean \u2014 tap to read through them.",
   qlStamp: "Quick links", qlH2: "Where do I go for\u2026",
   qlLede: "The links you\u2019ll need most, and the question each one answers.",
   libStamp: "Watch & learn", libH2: "Video library",
@@ -572,6 +619,9 @@ es: {
   leaveStamp: "D\u00EDas libres", leaveH2: "Tus d\u00EDas libres al a\u00F1o",
   howtoStamp: "Conceptos b\u00E1sicos de Hubstaff", howtoH2: "Gu\u00EDas r\u00E1pidas",
   practiceStamp: "Trabaja inteligente", practiceH2: "Buenas pr\u00E1cticas",
+  foldShow: "Mostrar", foldHide: "Ocultar",
+  howtoPeek: "Gu\u00EDas paso a paso para instalar, timesheets, capturas, zonas horarias y m\u00E1s \u2014 toca para abrir la que necesites.",
+  practicePeek: "Los h\u00E1bitos que mantienen tu pago exacto y tu historial limpio \u2014 toca para leerlos.",
   qlStamp: "Enlaces r\u00E1pidos", qlH2: "\u00BFA d\u00F3nde voy para\u2026?",
   qlLede: "Los enlaces que m\u00E1s necesitar\u00E1s, y la pregunta que responde cada uno.",
   libStamp: "Mira y aprende", libH2: "Videoteca",
@@ -818,6 +868,7 @@ function renderInner(){
   const lh = document.getElementById("leave-howto"); lh.innerHTML = ""; lh.appendChild(accordion(C.leaveHowto, C));
   const hl = document.getElementById("howto-list"); hl.innerHTML = "";
   C.howtos.forEach(h=>hl.appendChild(accordion(h, C)));
+  document.getElementById("howto-count").textContent = C.howtos.length;
 
   // best practices
   const pList = document.getElementById("practice-list"); pList.innerHTML = "";
@@ -834,6 +885,7 @@ function renderInner(){
       "<div"+(p.warn?" class='warn'":"")+"><div class='pt'>"+esc(p.title)+"</div><div class='pb'>"+p.body+"</div>"+subHtml+"</div>";
     pList.appendChild(div);
   });
+  document.getElementById("practice-count").textContent = C.bestPractices.length;
 
   // quick links
   document.getElementById("ql-grid").innerHTML = C.quickLinks.map(l=>
@@ -968,10 +1020,11 @@ function setLang(l){
     if(dep < b1) return "1"; if(dep < b2) return "2"; if(dep < b3) return "3"; return "none";
   }
   const MILESTONE = "After that, the Milestone Program takes over \u2014 our way of thanking you for staying: a flat <span class='rt-money'>$750</span> for every year you continue with Legal Soft. So it\u2019s two separate rewards at two different times \u2014 your Retirement Fund lands first as a lump sum, and the Milestone reward comes each year after";
+  const CHECK_PAYSLIP = " <strong>To see the exact amount you\u2019ve accrued so far, check your payslip</strong> \u2014 your retirement accrual is listed there and grows each month you stay.";
   const GROUPS = {
-    "1":{name:"Group 1", vestYrs:3, vestLabel:"3 years", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 everything you\u2019ve built up over your three years, paid to you as a single lump sum once you vest. "+MILESTONE+"."},
-    "2":{name:"Group 2", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 a <span class='rt-money'>$360</span> vested benefit, paid to you as a single lump sum once you vest. "+MILESTONE+"."},
-    "3":{name:"Group 3", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 a <span class='rt-money'>$180</span> vested benefit, paid to you as a single lump sum once you vest. "+MILESTONE+"."}
+    "1":{name:"Group 1", vestYrs:3, vestLabel:"3 years", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 everything you\u2019ve built up over your three years, paid to you as a single lump sum once you vest."+CHECK_PAYSLIP+" "+MILESTONE+"."},
+    "2":{name:"Group 2", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 your accrued vested benefit, paid to you as a single lump sum once you vest."+CHECK_PAYSLIP+" "+MILESTONE+"."},
+    "3":{name:"Group 3", vestYrs:1, vestLabel:"1 year", reward:"Two rewards, arriving at different times. First, your <strong>Retirement Fund</strong> \u2014 your accrued vested benefit, paid to you as a single lump sum once you vest."+CHECK_PAYSLIP+" "+MILESTONE+"."}
   };
   function drawPath(active){
     let html="";
@@ -1074,7 +1127,7 @@ function setLang(l){
     stops.push({date:fmt(state.dep), what:"You started", note:"Your retirement benefit clock begins here.", cls:""});
     stops.push({date:fmt(vest), what:"You vest ("+G.vestLabel+")", note: floored ? "Your Retirement Fund vests. (For VAs who started before June 2023, the benefit period begins June 1, 2023.)" : "Your Retirement Fund fully vests.", cls:"reward"});
     stops.push({date:fmt(transition), what:"Move into the Milestone Program", note:"The day after you vest.", cls:""});
-    stops.push({date:fmt(payout), what:"Retirement Fund payout", note:"Your vested fund is released on the quarterly schedule after your vesting date.", cls:"reward"});
+    stops.push({date:fmt(payout)+" (est.)", what:"Retirement Fund payout", note:"Estimated release date \u2014 your vested fund is paid on the quarterly schedule after your vesting date. Ops Support confirms the exact date.", cls:"reward"});
     stops.push({date:"Each year after", what:"$750 Milestone benefit", note:"A separate, flat payout that follows \u2014 this is the Milestone Program, which starts once your Retirement Fund has been paid. No staggered amounts.", cls:"reward"});
     const timelineHtml = stops.map(s=>"<div class='rt-stop'><div class='rt-rail'><div class='rt-marker "+s.cls+"'></div></div>"+
       "<div><div class='date'>"+s.date+"</div><div class='what'>"+s.what+"</div><div class='note'>"+s.note+"</div></div></div>").join('');
@@ -1084,13 +1137,13 @@ function setLang(l){
       apprBody="Choosing to grow your career with us this long is a real commitment. Reaching this milestone is something to be proud of \u2014 and this benefit exists to honor your loyalty.";
       realizeK="You\u2019ve reached it";
       realizeV="Congratulations \u2014 you\u2019ve reached your "+G.vestYrs+"-year milestone on "+fmt(vest)+".";
-      realizeS="That\u2019s a genuine achievement. Your payout is scheduled for "+fmt(payout)+" \u2014 as long as you\u2019re active and full-time, you\u2019re in the payout window.";
+      realizeS="That\u2019s a genuine achievement. Your estimated payout is around "+fmt(payout)+" \u2014 as long as you\u2019re active and full-time, you\u2019re in the payout window. Ops Support confirms the exact date.";
     } else {
       apprTitle="Thank you for growing with Legal Soft.";
       apprBody="You\u2019re on your way to an important milestone, and every month of your commitment already matters to us. Here\u2019s what your loyalty is building toward.";
       realizeK="Where you are now";
       realizeV="You vest on "+fmt(vest)+" \u2014 about "+Math.max(0,monthsToVest)+" month"+(monthsToVest===1?"":"s")+" away.";
-      realizeS="Every month you stay brings you closer, and it already counts. Once you reach it, your payout follows on "+fmt(payout)+".";
+      realizeS="Every month you stay brings you closer, and it already counts. Once you reach it, your estimated payout follows around "+fmt(payout)+".";
     }
     let notes="";
     if(state.continuous===false && state.gap==="le30"){
